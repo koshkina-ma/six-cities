@@ -12,8 +12,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      errorsCount = {Setting.ErrorsCount} //что я передаю в итоге?
-    />
+    <App />
   </React.StrictMode>
 );

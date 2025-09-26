@@ -1,12 +1,12 @@
 import MainPage from '../../pages/main-page/main-page';
 
-type AppScreenProps = {
-  errorsCount: number;
-} //тоже самое, что в майн-пейдж
+// type AppScreenProps = {
+//   //потом посмотреть, что вынести в пропс
+// }
 
-function App({errorsCount}: AppScreenProps): JSX.Element {
+function App(/*props: AppScreenProps*/): JSX.Element {
   return (
-    <MainPage errorsCount={errorsCount} />
+    <MainPage />
   );
 }
 
