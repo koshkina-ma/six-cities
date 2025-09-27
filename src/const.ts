@@ -1,5 +1,5 @@
 const Setting = {
-  OffersCount: 15
+  OffersCount: 5
 };
 
 export { Setting };
