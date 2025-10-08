@@ -1,5 +1,6 @@
 import Header from '../../components/header/header';
 import { User } from '../../../src/const';
+import { Helmet } from 'react-helmet-async';
 
 // type LoginPageProps = {
 //   // сюда позже вынесем: название, цена, рейтинг, изображение и т.д.
@@ -9,6 +10,9 @@ import { User } from '../../../src/const';
 function LoginPage(/*LoginPageProps*/): JSX.Element {
   return (
     <div className="page page--gray page--login">
+      <Helmet>
+        <title>6 cities: authorization</title>
+      </Helmet>
       <Header
         isLoggedIn = {false}
         email={User.email}

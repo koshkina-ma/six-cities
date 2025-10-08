@@ -1,5 +1,6 @@
 import Header from '../../components/header/header';
 import { User } from '../../../src/const';
+import { Helmet } from 'react-helmet-async';
 
 // type OfferPageProps = {
 //   // потом можно добавить пропсы
@@ -8,6 +9,9 @@ import { User } from '../../../src/const';
 function OfferPage(/*props: OfferPageProps*/): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>6 cities: offer</title>
+      </Helmet>
       <Header
         isLoggedIn = {false}
         email={User.email}

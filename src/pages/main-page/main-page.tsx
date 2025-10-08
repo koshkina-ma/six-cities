@@ -1,6 +1,7 @@
 import Header from '../../components/header/header';
 import OfferCard from '../../components/offer-card/offer-card';
 import { User } from '../../../src/const';
+import { Helmet } from 'react-helmet-async';
 
 type MainPageProps = {
 offersCount: number;
@@ -9,6 +10,9 @@ offersCount: number;
 function MainPage({ offersCount }: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <Header
         isLoggedIn={User.isLoggedIn}
         email={User.email}
