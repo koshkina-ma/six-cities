@@ -1,5 +1,7 @@
+import { UserType } from './types';
+
 const Setting = {
-  OffersCount: 5
+  OffersCount: 15
 };
 
 const CITIES = [
@@ -24,14 +26,14 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-const User = {
+const user: UserType = {
   name: 'Mary K',
   avatarUrl: 'https://url-to-image/image.png',
   isPro:  false,
   email: 'MaryK@gmail.com',
   favoriteCount: 3,
-  isLoggedIn: true,
+  isLoggedIn: true, //TODO никак не связано с авторизацией, сейчас просто руками проставлено NoAuth в app.tsx
   hideUserNav: false
 };
 
-export { Setting, CITIES, AppRoute, AuthorizationStatus, User };
+export { Setting, CITIES, AppRoute, AuthorizationStatus, user };

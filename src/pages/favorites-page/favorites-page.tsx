@@ -1,5 +1,5 @@
-import Header from '../../components/header/header';
-import { User } from '../../../src/const';
+import { Header } from '../../components';
+import { user } from '../../const' ;
 import { Helmet } from 'react-helmet-async';
 
 // type FavoritesPageProps = {
@@ -13,9 +13,9 @@ function FavoritesPage(/*props: FavoritesPageProps*/): JSX.Element {
         <title>6 cities: favorites</title>
       </Helmet>
       <Header
-        isLoggedIn={User.isLoggedIn}
-        email={User.email}
-        favoriteCount={User.favoriteCount}
+        isLoggedIn={user.isLoggedIn}
+        email={user.email}
+        favoriteCount={user.favoriteCount}
       />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">

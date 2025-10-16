@@ -1,5 +1,5 @@
-import Header from '../../components/header/header';
-import { User } from '../../../src/const';
+import { Header } from '../../components';
+import { user } from '../../const' ;
 import { Helmet } from 'react-helmet-async';
 
 // type LoginPageProps = {
@@ -15,8 +15,8 @@ function LoginPage(/*LoginPageProps*/): JSX.Element {
       </Helmet>
       <Header
         isLoggedIn = {false}
-        email={User.email}
-        favoriteCount={User.favoriteCount}
+        email={user.email}
+        favoriteCount={user.favoriteCount}
         hideUserNav
       />
       <main className="page__main page__main--login">

@@ -1,5 +1,5 @@
-import Header from '../../components/header/header';
-import { User } from '../../../src/const';
+import { Header } from '../../components';
+import { user } from '../../const';
 import { Helmet } from 'react-helmet-async';
 
 // type OfferPageProps = {
@@ -14,8 +14,8 @@ function OfferPage(/*props: OfferPageProps*/): JSX.Element {
       </Helmet>
       <Header
         isLoggedIn = {false}
-        email={User.email}
-        favoriteCount={User.favoriteCount}
+        email={user.email}
+        favoriteCount={user.favoriteCount}
       />
       <main className="page__main page__main--offer">
         <section className="offer">

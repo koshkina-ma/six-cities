@@ -1,6 +1,5 @@
-import Header from '../../components/header/header';
-import OfferCard from '../../components/offer-card/offer-card';
-import { User } from '../../../src/const';
+import { Header, OfferCard } from '../../components';
+import { user } from '../../const' ;
 import { Helmet } from 'react-helmet-async';
 
 type MainPageProps = {
@@ -14,9 +13,9 @@ function MainPage({ offersCount }: MainPageProps): JSX.Element {
         <title>6 cities</title>
       </Helmet>
       <Header
-        isLoggedIn={User.isLoggedIn}
-        email={User.email}
-        favoriteCount={User.favoriteCount}
+        isLoggedIn={user.isLoggedIn}
+        email={user.email}
+        favoriteCount={user.favoriteCount}
       />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
