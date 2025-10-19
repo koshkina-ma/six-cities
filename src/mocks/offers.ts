@@ -1,6 +1,6 @@
 import { OfferType } from '../types';
 
-export const mockOffers: OfferType[] = [
+const mockOffers: OfferType[] = [
   {
     id: '2b3f7c9d-1234-4a56-89ab-1c2d3e4f5678',
     title: 'Cozy loft in Paris',
@@ -30,7 +30,7 @@ export const mockOffers: OfferType[] = [
       avatarUrl: 'https://url-to-image/image2.png',
       isPro: true
     },
-    images: ['https://url-to-image/image2-1.png', 'https://url-to-image/image2-2.png'],
+    images: ['img/apartment-01.jpg', 'https://url-to-image/image2-2.png'],
     maxAdults: 3
   },
   {
@@ -62,7 +62,7 @@ export const mockOffers: OfferType[] = [
       avatarUrl: 'https://url-to-image/image3.png',
       isPro: false
     },
-    images: ['https://url-to-image/image3-1.png', 'https://url-to-image/image3-2.png'],
+    images: ['img/room.jpg', 'https://url-to-image/image3-2.png'],
     maxAdults: 2
   },
   {
@@ -94,7 +94,7 @@ export const mockOffers: OfferType[] = [
       avatarUrl: 'https://url-to-image/image4.png',
       isPro: true
     },
-    images: ['https://url-to-image/image4-1.png', 'https://url-to-image/image4-2.png'],
+    images: ['img/apartment-02.jpg', 'https://url-to-image/image4-2.png'],
     maxAdults: 6
   },
   {
@@ -126,7 +126,9 @@ export const mockOffers: OfferType[] = [
       avatarUrl: 'https://url-to-image/image5.png',
       isPro: true
     },
-    images: ['https://url-to-image/image5-1.png', 'https://url-to-image/image5-2.png'],
+    images: ['img/apartment-03.jpg', 'https://url-to-image/image5-2.png'],
     maxAdults: 4
   }
 ];
+
+export { mockOffers };
