@@ -3,17 +3,16 @@ import {HelmetProvider} from 'react-helmet-async';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import { MainPage, FavoritesPage, LoginPage, NotFoundPage, OfferPage } from '../../pages';
 import PrivateRoute from '../private-route/private-route';
-import { OfferType } from '../../types';
-//import { CommentType } from '../../types';
+import { OfferType, CommentType } from '../../types';
 
 
 type AppProps = {
   offersCount: number;
   offers: OfferType[];
-  //comments: CommentType[];
+  comments: CommentType[];
 }
 
-function App({offersCount, offers, /*comments*/}: AppProps): JSX.Element {
+function App({offersCount, offers, comments}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -43,7 +42,7 @@ function App({offersCount, offers, /*comments*/}: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferPage />}
+            element={<OfferPage comments={comments} />}
           />
           <Route
             path="*"

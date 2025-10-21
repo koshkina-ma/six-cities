@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { App } from './components';
 import { Setting } from './const';
 import { mockOffers } from './mocks/offers';
-//import { mockComments } from './mocks/comments';
+import { mockComments } from './mocks/comments';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,7 +14,7 @@ root.render(
     <App
       offersCount = {Setting.OffersCount}
       offers = {mockOffers}
-      /*comments = {mockComments}*/
+      comments = {mockComments}
     />
   </React.StrictMode>
 );
