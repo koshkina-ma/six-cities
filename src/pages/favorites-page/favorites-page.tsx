@@ -1,5 +1,5 @@
 import { Header } from '../../components';
-import { user } from '../../const' ;
+import { user } from '../../const';
 import { Helmet } from 'react-helmet-async';
 import { OfferType } from '../../types';
 import { OfferCard } from '../../components';
@@ -39,9 +39,7 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
                     {favoriteOffers
                       .filter((offer) => offer.city.name === city)
                       .map((offer) => (
-                        <article key={offer.id} className="favorites__card place-card">
-                          <OfferCard offer={offer} />
-                        </article>
+                        <OfferCard key={offer.id} offer={offer} />
                       ))}
 
                   </div>

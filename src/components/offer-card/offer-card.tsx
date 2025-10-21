@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { OfferType } from '../../types';
 
 type OfferCardProps = {
@@ -9,6 +10,7 @@ function OfferCard({ offer }: OfferCardProps): JSX.Element | null {
     return null;
   }
   const {
+    id,
     isPremium,
     price,
     rating,
@@ -54,7 +56,7 @@ function OfferCard({ offer }: OfferCardProps): JSX.Element | null {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

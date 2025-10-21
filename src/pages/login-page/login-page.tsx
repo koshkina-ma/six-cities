@@ -1,5 +1,5 @@
 import { Header } from '../../components';
-import { user } from '../../const' ;
+import { user } from '../../const';
 import { Helmet } from 'react-helmet-async';
 
 // type LoginPageProps = {
