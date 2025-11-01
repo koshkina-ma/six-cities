@@ -15,7 +15,7 @@ function OffersList({ offers }: OffersListProps): JSX.Element {
           key={offer.id}
           onMouseEnter={() => setActiveOfferId(offer.id)}
           onMouseLeave={() => setActiveOfferId(null)}
-          className={activeOfferId === offer.id ? 'active' : ''}//TODO добавление класса только для линтера, чтобы не ругался
+          className={activeOfferId === offer.id ? 'active' : ''}//TODO добавление класса только для линтера, чтобы не ругался, хендлер?
           //когда буду использовать эту const где-то еще, можно будет снести эту строчку
         >
           <OfferCard offer={offer} />

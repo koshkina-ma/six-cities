@@ -1,85 +1,70 @@
-import { useState } from 'react';
+import { FC, Fragment, useState, ReactEventHandler } from 'react';
 import { CommentFormDataType } from '../../types';
 
 type CommentFormProps = {
   onSubmit: (data: CommentFormDataType) => void;
 };
 
-function CommentForm({ onSubmit }: CommentFormProps): JSX.Element {
-  const [commentFormData, setCommentFormData] = useState<CommentFormDataType>({ comment: '', rating: 0 });
-  const [hoveredRating, setHoveredRating] = useState(0);
+type TChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setCommentFormData((prev) => ({
-      ...prev,
-      [name]: name === 'rating' ? Number(value) : value,
-    }));
+const ratings = [
+  { value: 5, label: 'perfect' },
+  { value: 4, label: 'good' },
+  { value: 3, label: 'not bad' },
+  { value: 2, label: 'poor' },
+  { value: 1, label: 'terrible' },
+];
+
+const CommentForm: FC<CommentFormProps> = ({ onSubmit }) => {
+  const [formData, setFormData] = useState<CommentFormDataType>({ comment: '', rating: 0 });
+
+  const handleChange: TChangeHandler = (event) => {
+    const { name, value } = event.currentTarget;
+    setFormData({ ...formData, [name]: name === 'rating' ? Number(value) : value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(commentFormData);
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    onSubmit(formData);
   };
 
-  const handleStarHover = (rating: number) => {
-    setHoveredRating(rating);
-  };
-
-  const handleStarLeave = () => {
-    setHoveredRating(0);
-  };
-
-  const getStarState = (star: number) => {
-    const currentRating = hoveredRating || commentFormData.rating;
-    return star <= currentRating;
-  };
-
-  //TODO проблема с закрашиванием всех выбранных звезд в форме, оригинал разметки в offer.html
   return (
-    <form onSubmit={handleSubmit} className="reviews__form form">
+    <form className="reviews__form form" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
 
       <div className="reviews__rating-form form__rating">
-        {[5, 4, 3, 2, 1].map((star) => (
-          <div key={star}>
+        {ratings.map(({ value, label }) => (
+          <Fragment key={value}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
-              value={star}
-              id={`${star}-stars`}
+              value={value}
+              id={`${value}-stars`}
               type="radio"
               onChange={handleChange}
-              checked={commentFormData.rating === star}
+              checked={formData.rating === value}
             />
             <label
+              htmlFor={`${value}-stars`}
               className="reviews__rating-label form__rating-label"
-              htmlFor={`${star}-stars`}
-              title={`${star} stars`}
-              onMouseEnter={() => handleStarHover(star)}
-              onMouseLeave={handleStarLeave}
+              title={label}
             >
-              <svg
-                className="form__star-image"
-                width="37"
-                height="33"
-                style={{ fill: getStarState(star) ? '#ff9000' : '#c7c7c7' }}
-              >
-                <use xlinkHref="#icon-star"></use>
+              <svg className="form__star-image" width="37" height="33">
+                <use xlinkHref="#icon-star" />
               </svg>
             </label>
-          </div>
+          </Fragment>
         ))}
       </div>
 
       <textarea
+        className="reviews__textarea form__textarea"
         id="review"
         name="comment"
-        value={commentFormData.comment}
+        value={formData.comment}
         onChange={handleChange}
-        className="reviews__textarea form__textarea"
         placeholder="Tell how was your stay, what you like and what can be improved"
         minLength={50}
       />
@@ -90,16 +75,15 @@ function CommentForm({ onSubmit }: CommentFormProps): JSX.Element {
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
-          type="submit"
           className="reviews__submit form__submit button"
-          disabled={commentFormData.rating === 0 || commentFormData.comment.length < 50}
+          type="submit"
+          disabled={formData.rating === 0 || formData.comment.length < 50}
         >
           Submit
         </button>
       </div>
     </form>
   );
-}
-
+};
 
 export default CommentForm;
