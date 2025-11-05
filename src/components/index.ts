@@ -6,4 +6,6 @@ export { default as PrivateRoute } from './private-route/private-route';
 export { default as CitiesList } from './cities-list/cities-list';
 export { default as CommentForm } from './comment-form/comment-form';
 export { default as CommentsList } from './comments-list/comments-list.tsx';
+export { default as Map } from './map/map.tsx';
+
 

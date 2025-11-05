@@ -7,17 +7,17 @@ const mockOffers: OfferType[] = [
     type: 'house',
     price: 150,
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
-        latitude: 48.8566,
-        longitude: 2.3522,
-        zoom: 10
+        latitude: 52.3676,
+        longitude: 4.9041,
+        zoom: 8
       }
     },
     location: {
-      latitude: 48.857,
-      longitude: 2.353,
-      zoom: 10
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
     },
     isFavorite: true,
     isPremium: true,
@@ -39,17 +39,17 @@ const mockOffers: OfferType[] = [
     type: 'apartment',
     price: 90,
     city: {
-      name: 'Berlin',
+      name: 'Amsterdam',
       location: {
-        latitude: 52.52,
-        longitude: 13.405,
-        zoom: 12
+        latitude: 52.3676,
+        longitude: 4.9041,
+        zoom: 8
       }
     },
     location: {
-      latitude: 52.521,
-      longitude: 13.406,
-      zoom: 12
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
     },
     isFavorite: false,
     isPremium: false,
@@ -71,17 +71,17 @@ const mockOffers: OfferType[] = [
     type: 'house',
     price: 250,
     city: {
-      name: 'Rome',
+      name: 'Amsterdam',
       location: {
-        latitude: 41.9028,
-        longitude: 12.4964,
-        zoom: 10
+        latitude: 52.3676,
+        longitude: 4.9041,
+        zoom: 8
       }
     },
     location: {
-      latitude: 41.903,
-      longitude: 12.497,
-      zoom: 10
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 8
     },
     isFavorite: true,
     isPremium: true,
@@ -103,17 +103,17 @@ const mockOffers: OfferType[] = [
     type: 'apartment',
     price: 180,
     city: {
-      name: 'Barcelona',
+      name: 'Amsterdam',
       location: {
-        latitude: 41.3851,
-        longitude: 2.1734,
-        zoom: 11
+        latitude: 52.3676,
+        longitude: 4.9041,
+        zoom: 8
       }
     },
     location: {
-      latitude: 41.386,
-      longitude: 2.174,
-      zoom: 11
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 8
     },
     isFavorite: false,
     isPremium: true,

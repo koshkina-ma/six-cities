@@ -1,4 +1,4 @@
-import { Header, OffersList, CitiesList } from '../../components';
+import { Header, OffersList, CitiesList, Map } from '../../components';
 import { user, CITIES } from '../../const' ;
 import { Helmet } from 'react-helmet-async';
 import { OfferType } from '../../types';
@@ -49,7 +49,7 @@ function MainPage({ offersCount, getOffers }: MainPageProps): JSX.Element {
               <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map offers={offers} />
             </div>
           </div>
         </div>
