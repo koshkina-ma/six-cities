@@ -40,6 +40,7 @@ function useMap(mapRef: React.RefObject<HTMLDivElement>, offers: OfferType[]) {
       return () => {
         window.removeEventListener('resize', handleResize);
         leafletMap.remove();
+        isRenderedRef.current = false;
       };
     }
   }, [mapRef, offers]);

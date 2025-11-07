@@ -1,5 +1,8 @@
 import { UserType } from './types';
 
+const URL_MARKER_DEFAULT = '../markup/img/pin.svg';
+const URL_MARKER_ACTIVE = '../markup/img/pin-active.svg';
+
 const Setting = {
   OffersCount: 15
 };
@@ -36,4 +39,12 @@ const user: UserType = {
   hideUserNav: false
 };
 
-export { Setting, CITIES, AppRoute, AuthorizationStatus, user };
+export {
+  Setting,
+  CITIES,
+  AppRoute,
+  AuthorizationStatus,
+  user,
+  URL_MARKER_DEFAULT,
+  URL_MARKER_ACTIVE
+};

@@ -2,8 +2,7 @@ import { useEffect, useRef } from 'react';
 import { OfferType } from '../../types';
 import { useMap } from '../../hooks';
 import leaflet from 'leaflet';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import { URL_MARKER_DEFAULT, /*URL_MARKER_ACTIVE*/ } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = { //TODO city: city; активный оффер?
@@ -17,11 +16,11 @@ function Map({ offers }: MapProps) {
   useEffect(() => {
     if (map && offers.length > 0) {
       const defaultIcon = leaflet.icon({
-        iconUrl: markerIcon,
-        shadowUrl: markerShadow,
+        iconUrl: URL_MARKER_DEFAULT,
         iconSize: [40, 40],
         iconAnchor: [20, 40],
       });
+
       leaflet.Marker.prototype.options.icon = defaultIcon;
 
       map.eachLayer((layer) => {
