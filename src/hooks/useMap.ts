@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import leaflet from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { OfferType } from '../types';
 
 function useMap(mapRef: React.RefObject<HTMLDivElement>, offers: OfferType[]) {
@@ -30,6 +31,16 @@ function useMap(mapRef: React.RefObject<HTMLDivElement>, offers: OfferType[]) {
 
       setMap(leafletMap);
       isRenderedRef.current = true;
+
+      requestAnimationFrame(() => leafletMap.invalidateSize());
+
+      const handleResize = () => leafletMap.invalidateSize();
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        leafletMap.remove();
+      };
     }
   }, [mapRef, offers]);
 
