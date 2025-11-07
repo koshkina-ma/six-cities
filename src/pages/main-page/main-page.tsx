@@ -2,6 +2,7 @@ import { Header, OffersList, CitiesList, Map } from '../../components';
 import { user, CITIES } from '../../const' ;
 import { Helmet } from 'react-helmet-async';
 import { OfferType } from '../../types';
+import { useState } from 'react';
 
 type MainPageProps = {
   offersCount: number;
@@ -9,6 +10,7 @@ type MainPageProps = {
   }
 
 function MainPage({ offersCount, getOffers }: MainPageProps): JSX.Element {
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
   const offers = getOffers();
   return (
     <div className="page page--gray page--main">
@@ -46,10 +48,10 @@ function MainPage({ offersCount, getOffers }: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers} />
+              <OffersList offers={offers} onOfferHover={setActiveOfferId}/>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} />
+              <Map offers={offers} activeOfferId={activeOfferId}/>
             </div>
           </div>
         </div>

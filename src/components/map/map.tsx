@@ -2,14 +2,15 @@ import { useEffect, useRef } from 'react';
 import { OfferType } from '../../types';
 import { useMap } from '../../hooks';
 import leaflet from 'leaflet';
-import { URL_MARKER_DEFAULT, /*URL_MARKER_ACTIVE*/ } from '../../const';
+import { URL_MARKER_DEFAULT, URL_MARKER_ACTIVE } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
-type MapProps = { //TODO city: city; активный оффер?
+type MapProps = { //TODO city: city
   offers: OfferType[];
+  activeOfferId?: string | null;
 };
 
-function Map({ offers }: MapProps) {
+function Map({ offers, activeOfferId }: MapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef, offers);
 
@@ -21,7 +22,11 @@ function Map({ offers }: MapProps) {
         iconAnchor: [20, 40],
       });
 
-      leaflet.Marker.prototype.options.icon = defaultIcon;
+      const activeIcon = leaflet.icon({
+        iconUrl: URL_MARKER_ACTIVE,
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+      });
 
       map.eachLayer((layer) => {
         if (layer instanceof leaflet.Marker) {
@@ -31,10 +36,11 @@ function Map({ offers }: MapProps) {
 
       offers.forEach((offer) => {
         const { latitude, longitude } = offer.location;
-        leaflet.marker([latitude, longitude]).addTo(map);
+        const icon = offer.id === activeOfferId ? activeIcon : defaultIcon;
+        leaflet.marker([latitude, longitude], { icon }).addTo(map);
       });
     }
-  }, [map, offers]); //TODO сюда про активный оффер еще зависимость
+  }, [map, offers, activeOfferId]);
 
   return <section className="cities__map map" ref={mapRef} />;
 }
