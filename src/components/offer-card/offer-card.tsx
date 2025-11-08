@@ -3,9 +3,10 @@ import { OfferType } from '../../types';
 
 type OfferCardProps = {
   offer: OfferType;
+  className?: string;
 }
 
-function OfferCard({ offer }: OfferCardProps): JSX.Element | null {
+function OfferCard({ offer, className = 'cities__card' }: OfferCardProps): JSX.Element | null {
   if (!offer) {
     return null;
   }
@@ -19,7 +20,7 @@ function OfferCard({ offer }: OfferCardProps): JSX.Element | null {
     images
   } = offer;
   return (
-    <article className="cities__card place-card">
+    <article className={`${className} place-card`}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
