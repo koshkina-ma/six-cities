@@ -51,7 +51,7 @@ function MainPage({ offersCount, getOffers }: MainPageProps): JSX.Element {
               <OffersList offers={offers} onOfferHover={setActiveOfferId}/>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} activeOfferId={activeOfferId}/>
+              <Map className='cities__map' offers={offers} activeOfferId={activeOfferId}/>
             </div>
           </div>
         </div>

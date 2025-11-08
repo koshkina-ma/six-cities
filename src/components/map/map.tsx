@@ -6,11 +6,13 @@ import { URL_MARKER_DEFAULT, URL_MARKER_ACTIVE } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = { //TODO city: city
+  className?: string;
   offers: OfferType[];
   activeOfferId?: string | null;
+
 };
 
-function Map({ offers, activeOfferId }: MapProps) {
+function Map({ className, offers, activeOfferId }: MapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef, offers);
 
@@ -42,8 +44,8 @@ function Map({ offers, activeOfferId }: MapProps) {
     }
   }, [map, offers, activeOfferId]);
 
-  return <section className="cities__map map" ref={mapRef} />;
+  return <section className={`map ${className}`} ref={mapRef} />;
 }
-
+//TODO вручную прописан размер карты, не нравится
 
 export default Map;

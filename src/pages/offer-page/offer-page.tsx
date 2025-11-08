@@ -1,13 +1,15 @@
-import { Header, CommentsList, CommentForm } from '../../components';
+import { Header, CommentsList, CommentForm, Map } from '../../components';
 import { user } from '../../const';
 import { Helmet } from 'react-helmet-async';
-import { CommentType, CommentFormDataType } from '../../types';
+import { CommentType, CommentFormDataType, OfferType } from '../../types';
+
 
 type OfferPageProps = {
   comments: CommentType[];
+  nearOffers: OfferType[];
 }
 
-function OfferPage({ comments }: OfferPageProps): JSX.Element {
+function OfferPage({ comments, nearOffers }: OfferPageProps): JSX.Element {
   const handleCommentSubmit = (data: CommentFormDataType): void => {
     void data; // явно "используем" переменную
     // TODO: реализовать отправку комментария
@@ -149,7 +151,10 @@ function OfferPage({ comments }: OfferPageProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <Map
+            className="offer__map"
+            offers={nearOffers}
+          />
         </section>
         <div className="container">
           <section className="near-places places">

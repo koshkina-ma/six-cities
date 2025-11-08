@@ -42,7 +42,12 @@ function App({offersCount, offers, comments}: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferPage comments={comments} />}
+            element={
+              <OfferPage
+                comments={comments}
+                nearOffers={offers.slice(0, 3)} //TODO в ближайшие берет тупо 3 первых из моков
+              />
+            }
           />
           <Route
             path="*"
