@@ -3,13 +3,17 @@ import { setCity, setOffers } from './action';
 import { OfferType } from '../types';
 import { CITIES } from '../const';
 
-
-const initialState = {
-  city: CITIES[0],
-  offers: [] as OfferType[],
+type AppStateType = {
+  city: string;
+  offers: OfferType[];
 };
 
-const reducer = createReducer(initialState, (builder) => {
+const initialState: AppStateType = {
+  city: CITIES[0],
+  offers: [],
+};
+
+const reducer = createReducer<AppStateType>(initialState, (builder) => {
   builder
     .addCase(setCity, (state, action) => {
       state.city = action.payload;

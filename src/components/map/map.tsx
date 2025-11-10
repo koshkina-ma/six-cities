@@ -5,7 +5,7 @@ import leaflet from 'leaflet';
 import { URL_MARKER_DEFAULT, URL_MARKER_ACTIVE } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
-type MapProps = { //TODO city: city
+type MapProps = {
   className?: string;
   offers: OfferType[];
   activeOfferId?: string | null;

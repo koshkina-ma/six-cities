@@ -1,17 +1,16 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Header, OffersList, CitiesList, Map } from '../../components';
 import { user, CITIES } from '../../const' ;
 import { Helmet } from 'react-helmet-async';
-import { State } from '../../types/state';
 import { setCity } from '../../store/action';
 
 function MainPage(): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
-  const dispatch = useDispatch();
-  const city = useSelector((state: State) => state.city);
-  const allOffers = useSelector((state: State) => state.offers);
+  const dispatch = useAppDispatch();
+  const city = useAppSelector((state) => state.city);
+  const allOffers = useAppSelector((state) => state.offers);
   const offers = allOffers.filter((offer) => offer.city.name === city);
   const offersCount = offers.length;
 
