@@ -1,18 +1,24 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import { MainPage, FavoritesPage, LoginPage, NotFoundPage, OfferPage } from '../../pages';
 import PrivateRoute from '../private-route/private-route';
-import { OfferType, CommentType } from '../../types';
+import { setOffers } from '../../store/action';
+import { mockOffers } from '../../mocks/offers';
+import { mockComments } from '../../mocks/comments';
 
+const offers = mockOffers;
+const comments = mockComments;
 
-type AppProps = {
-  offersCount: number;
-  offers: OfferType[];
-  comments: CommentType[];
-}
+function App(): JSX.Element {
+  const dispatch = useDispatch();
 
-function App({offersCount, offers, comments}: AppProps): JSX.Element {
+  useEffect(() => {
+    dispatch(setOffers(offers));
+  }, [dispatch]);
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -20,10 +26,7 @@ function App({offersCount, offers, comments}: AppProps): JSX.Element {
           <Route
             path={AppRoute.Root}
             element={
-              <MainPage
-                offersCount={offersCount}
-                getOffers={() => offers}
-              />
+              <MainPage />
             }
           />
           <Route

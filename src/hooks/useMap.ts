@@ -1,22 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { OfferType } from '../types';
 
-function useMap(mapRef: React.RefObject<HTMLDivElement>, offers: OfferType[]) {
+function useMap(mapRef: React.RefObject<HTMLDivElement>) {
   const [map, setMap] = useState<leaflet.Map | null>(null);
   const isRenderedRef = useRef(false);
 
   useEffect(() => {
-    if (mapRef.current !== null && !isRenderedRef.current && offers.length > 0) {
-      const cityLocation = offers[0].city.location;
-
+    if (mapRef.current !== null && !isRenderedRef.current) {
       const leafletMap = leaflet.map(mapRef.current, {
-        center: {
-          lat: cityLocation.latitude,
-          lng: cityLocation.longitude,
-        },
-        zoom: cityLocation.zoom,
+        center: [0, 0],
+        zoom: 1,
       });
 
       leaflet
@@ -43,7 +37,7 @@ function useMap(mapRef: React.RefObject<HTMLDivElement>, offers: OfferType[]) {
         isRenderedRef.current = false;
       };
     }
-  }, [mapRef, offers]);
+  }, [mapRef]);
 
   return map;
 }

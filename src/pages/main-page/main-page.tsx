@@ -1,17 +1,24 @@
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Header, OffersList, CitiesList, Map } from '../../components';
 import { user, CITIES } from '../../const' ;
 import { Helmet } from 'react-helmet-async';
-import { OfferType } from '../../types';
-import { useState } from 'react';
+import { State } from '../../types/state';
+import { setCity } from '../../store/action';
 
-type MainPageProps = {
-  offersCount: number;
-  getOffers: () => OfferType[];
-  }
-
-function MainPage({ offersCount, getOffers }: MainPageProps): JSX.Element {
+function MainPage(): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-  const offers = getOffers();
+
+  const dispatch = useDispatch();
+  const city = useSelector((state: State) => state.city);
+  const allOffers = useSelector((state: State) => state.offers);
+  const offers = allOffers.filter((offer) => offer.city.name === city);
+  const offersCount = offers.length;
+
+  const handleCityClick = (selectedCity: string) => {
+    dispatch(setCity(selectedCity));
+  };
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -26,13 +33,14 @@ function MainPage({ offersCount, getOffers }: MainPageProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <CitiesList
           cities={CITIES}
-          activeCity={CITIES[0]}
+          activeCity={city}
+          onCityClick={handleCityClick}
         />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offersCount} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>

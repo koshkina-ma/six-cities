@@ -1,9 +1,10 @@
 type CitiesListProps = {
   cities: string[];
   activeCity: string;
+  onCityClick?: (city: string) => void;
 };
 
-function CitiesList({ cities, activeCity }: CitiesListProps): JSX.Element {
+function CitiesList({ cities, activeCity, onCityClick }: CitiesListProps): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -14,6 +15,7 @@ function CitiesList({ cities, activeCity }: CitiesListProps): JSX.Element {
                 className={`locations__item-link tabs__item ${
                   city === activeCity ? 'tabs__item--active' : ''
                 }`}
+                onClick={() => onCityClick?.(city)}
               >
                 {city}
               </span>
