@@ -128,7 +128,172 @@ const mockOffers: OfferType[] = [
     },
     images: ['img/apartment-03.jpg', 'https://url-to-image/image5-2.png'],
     maxAdults: 4
-  }
+  },
+  // Paris
+  {
+    id: 'paris-01',
+    title: 'Romantic apartment in Paris',
+    type: 'apartment',
+    price: 200,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.8566,
+        longitude: 2.3522,
+        zoom: 12
+      }
+    },
+    location: {
+      latitude: 48.8606,
+      longitude: 2.3376,
+      zoom: 12
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 4.7,
+    description: 'Charming apartment near the Louvre.',
+    bedrooms: 1,
+    goods: ['Wifi', 'Kitchen', 'Washer'],
+    host: {
+      name: 'Jean Martin',
+      avatarUrl: 'https://url-to-image/image-paris.png',
+      isPro: true
+    },
+    images: ['img/apartment-01.jpg'],
+    maxAdults: 2
+  },
+  // Cologne
+  {
+    id: 'cologne-01',
+    title: 'Modern flat in Cologne',
+    type: 'apartment',
+    price: 120,
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude: 50.9375,
+        longitude: 6.9603,
+        zoom: 12
+      }
+    },
+    location: {
+      latitude: 50.9400,
+      longitude: 6.9600,
+      zoom: 12
+    },
+    isFavorite: false,
+    isPremium: false,
+    rating: 4.2,
+    description: 'Bright and modern flat in central Cologne.',
+    bedrooms: 2,
+    goods: ['Wifi', 'Kitchen'],
+    host: {
+      name: 'Lukas Schmidt',
+      avatarUrl: 'https://url-to-image/image-cologne.png',
+      isPro: false
+    },
+    images: ['img/apartment-01.jpg'],
+    maxAdults: 4
+  },
+  // Brussels
+  {
+    id: 'brussels-01',
+    title: 'Cozy studio in Brussels',
+    type: 'studio',
+    price: 100,
+    city: {
+      name: 'Brussels',
+      location: {
+        latitude: 50.8503,
+        longitude: 4.3517,
+        zoom: 12
+      }
+    },
+    location: {
+      latitude: 50.8510,
+      longitude: 4.3520,
+      zoom: 12
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 4.5,
+    description: 'Comfortable studio in the city center.',
+    bedrooms: 1,
+    goods: ['Wifi', 'Heating'],
+    host: {
+      name: 'Marie Dupont',
+      avatarUrl: 'https://url-to-image/image-brussels.png',
+      isPro: true
+    },
+    images: ['img/apartment-01.jpg'],
+    maxAdults: 2
+  },
+  // Hamburg
+  {
+    id: 'hamburg-01',
+    title: 'Stylish loft in Hamburg',
+    type: 'loft',
+    price: 130,
+    city: {
+      name: 'Hamburg',
+      location: {
+        latitude: 53.5511,
+        longitude: 9.9937,
+        zoom: 12
+      }
+    },
+    location: {
+      latitude: 53.5520,
+      longitude: 9.9950,
+      zoom: 12
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 4.6,
+    description: 'Stylish loft near the port of Hamburg.',
+    bedrooms: 2,
+    goods: ['Wifi', 'Kitchen', 'Air conditioning'],
+    host: {
+      name: 'Hans Müller',
+      avatarUrl: 'https://url-to-image/image-hamburg.png',
+      isPro: true
+    },
+    images: ['img/apartment-01.jpg'],
+    maxAdults: 4
+  },
+  // Dusseldorf
+  {
+    id: 'dusseldorf-01',
+    title: 'Modern apartment in Dusseldorf',
+    type: 'apartment',
+    price: 110,
+    city: {
+      name: 'Dusseldorf',
+      location: {
+        latitude: 51.2277,
+        longitude: 6.7735,
+        zoom: 12
+      }
+    },
+    location: {
+      latitude: 51.2280,
+      longitude: 6.7750,
+      zoom: 12
+    },
+    isFavorite: false,
+    isPremium: false,
+    rating: 4.3,
+    description: 'Cozy modern apartment in central Dusseldorf.',
+    bedrooms: 1,
+    goods: ['Wifi', 'Heating'],
+    host: {
+      name: 'Anna Becker',
+      avatarUrl: 'https://url-to-image/image-dusseldorf.png',
+      isPro: false
+    },
+    images: ['img/apartment-01.jpg'],
+    maxAdults: 2
+  },
 ];
 
 export { mockOffers };
