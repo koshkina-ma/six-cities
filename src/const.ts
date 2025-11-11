@@ -7,6 +7,13 @@ const Setting = {
   OffersCount: 15
 };
 
+const SORT_TYPES = {
+  POPULAR: 'Popular',
+  PRICE_LOW_TO_HIGH: 'Price: low to high',
+  PRICE_HIGH_TO_LOW: 'Price: high to low',
+  TOP_RATED_FIRST: 'Top rated first',
+};
+
 const CITIES = [
   'Paris',
   'Cologne',
@@ -46,5 +53,6 @@ export {
   AuthorizationStatus,
   user,
   URL_MARKER_DEFAULT,
-  URL_MARKER_ACTIVE
+  URL_MARKER_ACTIVE,
+  SORT_TYPES
 };
