@@ -4,14 +4,14 @@ import { Header, OffersList, CitiesList, Map } from '../../components';
 import { user, CITIES } from '../../const' ;
 import { Helmet } from 'react-helmet-async';
 import { setCity } from '../../store/action';
+import { getCity, getOffersByCity } from '../../store/selectors';
 
 function MainPage(): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   const dispatch = useAppDispatch();
-  const city = useAppSelector((state) => state.city);
-  const allOffers = useAppSelector((state) => state.offers);
-  const offers = allOffers.filter((offer) => offer.city.name === city);
+  const city = useAppSelector(getCity);
+  const offers = useAppSelector(getOffersByCity);
   const offersCount = offers.length;
 
   const handleCityClick = (selectedCity: string) => {
