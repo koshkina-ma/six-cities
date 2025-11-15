@@ -17,7 +17,7 @@ function OfferCard({ offer, className = 'cities__card' }: OfferCardProps): JSX.E
     rating,
     title,
     type,
-    images
+    previewImage
   } = offer;
   return (
     <article className={`${className} place-card`}>
@@ -30,7 +30,7 @@ function OfferCard({ offer, className = 'cities__card' }: OfferCardProps): JSX.E
         <a href="#">
           <img
             className="place-card__image"
-            src={images[0]}
+            src={previewImage}
             width="260"
             height="200"
             alt={title}

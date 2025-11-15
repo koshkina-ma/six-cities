@@ -1,3 +1,4 @@
+// Тип для списка предложений
 export type OfferType = {
   id: string;
   title: string;
@@ -19,6 +20,11 @@ export type OfferType = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
+  previewImage: string;
+};
+
+
+export type OfferDetailType = OfferType & {
   description: string;
   bedrooms: number;
   goods: string[];
