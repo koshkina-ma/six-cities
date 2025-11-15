@@ -10,6 +10,7 @@ const fetchOffers = createAsyncThunk<OfferType[], undefined, { extra: AxiosInsta
   'data/fetchOffers',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<OfferType[]>('/offers');
+    await new Promise((resolve) => setTimeout(resolve, 2000)); //TODO удалить setTimeout, стоит для проверки Loading...
     return data;
   }
 );

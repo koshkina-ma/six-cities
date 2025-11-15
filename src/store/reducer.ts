@@ -6,11 +6,15 @@ import { CITIES } from '../const';
 type AppStateType = {
   city: string;
   offers: OfferType[];
+  isLoading: boolean;
+  error: string | null;
 };
 
 const initialState: AppStateType = {
   city: CITIES[0],
   offers: [],
+  isLoading: false,
+  error: null,
 };
 
 const reducer = createReducer<AppStateType>(initialState, (builder) => {
@@ -21,9 +25,19 @@ const reducer = createReducer<AppStateType>(initialState, (builder) => {
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
     })
+    .addCase(fetchOffers.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    })
     .addCase(fetchOffers.fulfilled, (state, action) => {
       state.offers = action.payload;
+      state.isLoading = false;
+    })
+    .addCase(fetchOffers.rejected, (state) => {
+      state.isLoading = false;
+      state.error = 'Failed to load offers. Please try again later.';
     });
+
 });
 
 export {reducer};
