@@ -3,9 +3,9 @@ import { UserType } from './types';
 const URL_MARKER_DEFAULT = '../markup/img/pin.svg';
 const URL_MARKER_ACTIVE = '../markup/img/pin-active.svg';
 
-const Setting = {
-  OffersCount: 15
-};
+//TODO на удаление const Setting = {
+//   OffersCount: 15
+// };
 
 const SORT_TYPES = {
   POPULAR: 'Popular',
@@ -30,6 +30,14 @@ Favorites = '/favorites',
 Offer = '/offer/:id'
 }
 
+enum APIRoute {
+  Offers = '/offers',
+  Favorite = '/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -43,13 +51,14 @@ const user: UserType = {
   email: 'MaryK@gmail.com',
   favoriteCount: 3,
   isLoggedIn: true, //TODO никак не связано с авторизацией, сейчас просто руками проставлено NoAuth в app.tsx
-  hideUserNav: false
+  hideUserNav: false,
+  token: '1'
 };
 
 export {
-  Setting,
   CITIES,
   AppRoute,
+  APIRoute,
   AuthorizationStatus,
   user,
   URL_MARKER_DEFAULT,

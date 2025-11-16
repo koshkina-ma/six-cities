@@ -3,6 +3,7 @@ export type UserType = {
   avatarUrl: string;
   isPro: boolean;
   email: string;
+  token: string;
   favoriteCount: number;
   isLoggedIn: boolean;
   hideUserNav: boolean;

@@ -1,18 +1,10 @@
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import { AxiosInstance } from 'axios';
+
 import {createAction} from '@reduxjs/toolkit';
 import { OfferType } from '../types';
+import {AuthorizationStatus} from '../const';
 
 const setCity = createAction<string>('main/setCity');
 const setOffers = createAction<OfferType[]>('main/setOffers');
+const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
-const fetchOffers = createAsyncThunk<OfferType[], undefined, { extra: AxiosInstance }>(
-  'data/fetchOffers',
-  async (_arg, {extra: api}) => {
-    const {data} = await api.get<OfferType[]>('/offers');
-    await new Promise((resolve) => setTimeout(resolve, 2000)); //TODO удалить setTimeout, стоит для проверки Loading...
-    return data;
-  }
-);
-
-export { setCity, setOffers, fetchOffers };
+export { setCity, setOffers, requireAuthorization };

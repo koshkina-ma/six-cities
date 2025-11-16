@@ -5,7 +5,7 @@ import {HelmetProvider} from 'react-helmet-async';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import { MainPage, FavoritesPage, LoginPage, NotFoundPage, OfferPage } from '../../pages';
 import PrivateRoute from '../private-route/private-route';
-import { fetchOffers } from '../../store/action';
+import { fetchOffersAction } from '../../store/api-actions';
 import { getOffers } from '../../store/selectors';
 import { mockComments } from '../../mocks/comments';
 
@@ -16,7 +16,7 @@ function App(): JSX.Element {
   const comments = mockComments;
 
   useEffect(() => {
-    dispatch(fetchOffers());
+    dispatch(fetchOffersAction ());
   }, [dispatch]);
 
   return (

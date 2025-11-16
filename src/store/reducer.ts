@@ -1,13 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setCity, setOffers, fetchOffers } from './action';
+import { setCity, setOffers, requireAuthorization } from './action';
+import { fetchOffersAction } from './api-actions';
 import { OfferType } from '../types';
-import { CITIES } from '../const';
+import { CITIES, AuthorizationStatus } from '../const';
 
 type AppStateType = {
   city: string;
   offers: OfferType[];
   isLoading: boolean;
   error: string | null;
+  authorizationStatus: AuthorizationStatus;
 };
 
 const initialState: AppStateType = {
@@ -15,7 +17,9 @@ const initialState: AppStateType = {
   offers: [],
   isLoading: false,
   error: null,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
+
 
 const reducer = createReducer<AppStateType>(initialState, (builder) => {
   builder
@@ -24,20 +28,19 @@ const reducer = createReducer<AppStateType>(initialState, (builder) => {
     })
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
+      state.isLoading = false;
     })
-    .addCase(fetchOffers.pending, (state) => {
+    .addCase(fetchOffersAction.pending, (state) => {
       state.isLoading = true;
       state.error = null;
     })
-    .addCase(fetchOffers.fulfilled, (state, action) => {
-      state.offers = action.payload;
-      state.isLoading = false;
-    })
-    .addCase(fetchOffers.rejected, (state) => {
+    .addCase(fetchOffersAction.rejected, (state) => {
       state.isLoading = false;
       state.error = 'Failed to load offers. Please try again later.';
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
-
 });
 
 export {reducer};
