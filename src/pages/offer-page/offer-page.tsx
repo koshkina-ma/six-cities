@@ -1,15 +1,30 @@
 import { Header, CommentsList, CommentForm, Map, NearPlacesList } from '../../components';
 import { user } from '../../const';
 import { Helmet } from 'react-helmet-async';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { fetchCommentsAction } from '../../store/api-actions';
 import { CommentType, CommentFormDataType, OfferType } from '../../types';
 
 
-type OfferPageProps = {
-  comments: CommentType[];
-  nearOffers: OfferType[];
-}
+// type OfferPageProps = {
+//   comments: CommentType[];
+//   nearOffers: OfferType[];
+// }
 
-function OfferPage({ comments, nearOffers }: OfferPageProps): JSX.Element {
+function OfferPage(): JSX.Element {
+
+  const dispatch = useAppDispatch();
+  const comments = useAppSelector((state) => state.comments);
+  const offers = useAppSelector((state) => state.offers);
+  const { id } = useParams(); //TODO жепете придумал каку-то сущность, отредактировать при домашке про офферы
+
+  useEffect(() => {
+    dispatch(fetchCommentsAction(id));
+  }, [id, dispatch]);
+
+  const nearOffers = offers.slice(0, 3);
+
   const handleCommentSubmit = (data: CommentFormDataType): void => {
     void data; // явно "используем" переменную
     // TODO: реализовать отправку комментария

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { Header, OffersList, CitiesList, Map, SortOptions, Spinner, ErrorMessage } from '../../components';
+import { Header, OffersList, CitiesList, Map, SortOptions, Spinner } from '../../components';
 import { user, CITIES, SORT_TYPES } from '../../const' ;
 import { Helmet } from 'react-helmet-async';
 import { setCity } from '../../store/action';
@@ -23,7 +23,6 @@ function MainPage(): JSX.Element {
   };
 
   const isLoading = useAppSelector((state) => state.isLoading);
-  const error = useAppSelector((state) => state.error);
 
   return (
     <div className="page page--gray page--main">
@@ -42,26 +41,24 @@ function MainPage(): JSX.Element {
           activeCity={city}
           onCityClick={handleCityClick}
         />
-        {isLoading && <Spinner />}
-        {error && <ErrorMessage message={error} />}
-        {!isLoading && !error && (
-          <div className="cities">
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offersCount} places to stay in {city}</b>
-                <SortOptions value={sortType} onChange={setSortType} />
-                <OffersList offers={sortedOffers} onOfferHover={setActiveOfferId}/>
-              </section>
-              <div className="cities__right-section">
-                <Map className='cities__map' offers={offers} activeOfferId={activeOfferId}/>
-              </div>
+        <div className="cities">
+          <div className="cities__places-container container">
+            <section className="cities__places places">
+              <h2 className="visually-hidden">Places</h2>
+              {isLoading && <Spinner />}
+              <b className="places__found">{offersCount} places to stay in {city}</b>
+              <SortOptions value={sortType} onChange={setSortType} />
+              <OffersList offers={sortedOffers} onOfferHover={setActiveOfferId}/>
+            </section>
+            <div className="cities__right-section">
+              <Map className='cities__map' offers={offers} activeOfferId={activeOfferId}/>
             </div>
           </div>
-        )}
+        </div>
       </main>
     </div>
   );
 }
 
 export default MainPage;
+//TODO добавить удаление спинера и вывод ошибки что-ли, потому что если офферов нет, крутит бесконечно

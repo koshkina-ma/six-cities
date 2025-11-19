@@ -3,9 +3,7 @@ import { UserType } from './types';
 const URL_MARKER_DEFAULT = '../markup/img/pin.svg';
 const URL_MARKER_ACTIVE = '../markup/img/pin-active.svg';
 
-//TODO на удаление const Setting = {
-//   OffersCount: 15
-// };
+const TIMEOUT_SHOW_ERROR = 2000;
 
 const SORT_TYPES = {
   POPULAR: 'Popular',
@@ -63,5 +61,6 @@ export {
   user,
   URL_MARKER_DEFAULT,
   URL_MARKER_ACTIVE,
-  SORT_TYPES
+  SORT_TYPES,
+  TIMEOUT_SHOW_ERROR
 };

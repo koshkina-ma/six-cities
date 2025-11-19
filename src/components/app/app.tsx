@@ -1,23 +1,20 @@
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import { MainPage, FavoritesPage, LoginPage, NotFoundPage, OfferPage } from '../../pages';
 import PrivateRoute from '../private-route/private-route';
-import { fetchOffersAction } from '../../store/api-actions';
-import { getOffers } from '../../store/selectors';
-import { mockComments } from '../../mocks/comments';
+import { useAppSelector } from '../../hooks';
+import { Spinner } from '../../components';
 
 
 function App(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const offers = useAppSelector(getOffers);
-  const comments = mockComments;
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  useEffect(() => {
-    dispatch(fetchOffersAction ());
-  }, [dispatch]);
+  if (authorizationStatus === AuthorizationStatus.Unknown) {
+    return (
+      <Spinner /> //TODO странное место для спинера
+    );
+  }
 
   return (
     <HelmetProvider>
@@ -37,19 +34,16 @@ function App(): JSX.Element {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth} //TODO Auth или NoAuth
+                authorizationStatus={authorizationStatus} //TODO Auth или NoAuth
               >
-                <FavoritesPage offers={offers} />
+                <FavoritesPage />
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Offer}
             element={
-              <OfferPage
-                comments={comments}
-                nearOffers={offers.slice(0, 3)} //TODO в ближайшие берет тупо 3 первых из моков
-              />
+              <OfferPage />
             }
           />
           <Route

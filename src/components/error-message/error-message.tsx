@@ -1,15 +1,14 @@
 import './error-message.css';
+import {useAppSelector} from '../../hooks';
 
-type ErrorMessageProps = {
-  message: string;
-};
 
-function ErrorMessage({ message }: ErrorMessageProps): JSX.Element {
-  return (
-    <div className="error-message" role="alert">
-      <p>{message}</p>
-    </div>
-  );
+function ErrorMessage(): JSX.Element | null {
+  const error = useAppSelector((state) => state.error);
+
+  return (error)
+    ? <div className='error-message'>{error}</div>
+    : null;
+
 }
 
 export default ErrorMessage;
