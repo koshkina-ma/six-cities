@@ -1,5 +1,4 @@
 import { Header, CommentsList, CommentForm, Map, NearPlacesList } from '../../components';
-import { user } from '../../const';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
@@ -35,11 +34,7 @@ function OfferPage(): JSX.Element {
       <Helmet>
         <title>6 cities: offer</title>
       </Helmet>
-      <Header
-        isLoggedIn = {false}
-        email={user.email}
-        favoriteCount={user.favoriteCount}
-      />
+      <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">

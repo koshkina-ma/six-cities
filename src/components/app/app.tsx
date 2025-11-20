@@ -33,9 +33,7 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute
-                authorizationStatus={authorizationStatus} //TODO Auth или NoAuth
-              >
+              <PrivateRoute>
                 <FavoritesPage />
               </PrivateRoute>
             }

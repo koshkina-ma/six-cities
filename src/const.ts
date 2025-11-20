@@ -3,7 +3,7 @@ import { UserType } from './types';
 const URL_MARKER_DEFAULT = '../markup/img/pin.svg';
 const URL_MARKER_ACTIVE = '../markup/img/pin-active.svg';
 
-const TIMEOUT_SHOW_ERROR = 2000;
+const TIMEOUT_SHOW_ERROR = 20000; //TODO время показа ошибки
 
 const SORT_TYPES = {
   POPULAR: 'Popular',
@@ -42,13 +42,14 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+//TODO удалить юзера
 const user: UserType = {
   name: 'Mary K',
   avatarUrl: 'https://url-to-image/image.png',
   isPro:  false,
   email: 'MaryK@gmail.com',
   favoriteCount: 3,
-  isLoggedIn: true, //TODO никак не связано с авторизацией, сейчас просто руками проставлено NoAuth в app.tsx
+  isLoggedIn: true,
   hideUserNav: false,
   token: '1'
 };

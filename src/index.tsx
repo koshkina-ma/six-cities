@@ -21,3 +21,5 @@ root.render(
     </Provider>
   </React.StrictMode>,
 );
+
+//TODO ошибки на глобальном уровне, стоит ли выводить так

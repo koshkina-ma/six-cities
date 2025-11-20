@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Header, OffersList, CitiesList, Map, SortOptions, Spinner } from '../../components';
-import { user, CITIES, SORT_TYPES } from '../../const' ;
+import { CITIES, SORT_TYPES } from '../../const' ;
 import { Helmet } from 'react-helmet-async';
 import { setCity } from '../../store/action';
 import { getCity, getOffersByCity } from '../../store/selectors';
@@ -29,11 +29,7 @@ function MainPage(): JSX.Element {
       <Helmet>
         <title>6 cities</title>
       </Helmet>
-      <Header
-        isLoggedIn={user.isLoggedIn}
-        email={user.email}
-        favoriteCount={user.favoriteCount}
-      />
+      <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <CitiesList

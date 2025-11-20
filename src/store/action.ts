@@ -1,14 +1,19 @@
 
 import {createAction} from '@reduxjs/toolkit';
-import { OfferType, CommentType } from '../types';
+import { UserType, OfferType, CommentType } from '../types';
 import { AuthorizationStatus } from '../const';
 
 const setCity = createAction<string>('main/setCity');
-const setOffers = createAction<OfferType[]>('main/setOffers');
-const setComments = createAction<CommentType[]>('offer/setComments');
+
+const setUser = createAction<UserType | null>('user/setUser');
 const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
-const setError = createAction<string | null>('app/setError');
+
+const setOffers = createAction<OfferType[]>('main/setOffers');
 const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersDataLoadingStatus');
+
+const setComments = createAction<CommentType[]>('offer/setComments');
 const setCommentsDataLoadingStatus = createAction<boolean>('data/setCommentsDataLoadingStatus');
 
-export { setCity, setOffers, setComments, requireAuthorization, setError, setOffersDataLoadingStatus, setCommentsDataLoadingStatus };
+const setError = createAction<string | null>('app/setError');
+
+export { setCity, setUser, setOffers, setComments, requireAuthorization, setError, setOffersDataLoadingStatus, setCommentsDataLoadingStatus };

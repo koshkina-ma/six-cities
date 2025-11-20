@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setCity, setOffers, requireAuthorization, setError, setOffersDataLoadingStatus } from './action';
-import { OfferType, CommentType } from '../types';
+import { setCity, setUser, setOffers, requireAuthorization, setError, setOffersDataLoadingStatus } from './action';
+import { OfferType, UserType, CommentType } from '../types';
 import { CITIES, AuthorizationStatus } from '../const';
 
 type AppStateType = {
@@ -10,6 +10,7 @@ type AppStateType = {
   isLoading: boolean;
   error: string | null;
   authorizationStatus: AuthorizationStatus;
+  user: UserType | null;
 };
 
 const initialState: AppStateType = {
@@ -19,6 +20,7 @@ const initialState: AppStateType = {
   isLoading: false,
   error: null,
   authorizationStatus: AuthorizationStatus.Unknown,
+  user: null,
 };
 
 
@@ -35,7 +37,10 @@ const reducer = createReducer<AppStateType>(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
-    })
+    });
+  builder.addCase(setUser, (state, action) => {
+    state.user = action.payload;
+  })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
     });

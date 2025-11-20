@@ -1,26 +1,20 @@
-import { Header } from '../../components';
-import { user } from '../../const';
+import { Header, OfferCard } from '../../components';
 import { Helmet } from 'react-helmet-async';
-import { OfferType } from '../../types';
-import { OfferCard } from '../../components';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesPageProps = {
-  offers: OfferType[];
-}
-
-function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
+function FavoritesPage(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const favoriteCities = Array.from(new Set(favoriteOffers.map((offer) => offer.city.name)));
+
   return (
     <div className="page">
       <Helmet>
         <title>6 cities: favorites</title>
       </Helmet>
-      <Header
-        isLoggedIn={user.isLoggedIn}
-        email={user.email}
-        favoriteCount={user.favoriteCount}
-      />
+
+      <Header/>
+
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
