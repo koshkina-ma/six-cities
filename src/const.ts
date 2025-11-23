@@ -3,7 +3,7 @@ import { UserType } from './types';
 const URL_MARKER_DEFAULT = '../markup/img/pin.svg';
 const URL_MARKER_ACTIVE = '../markup/img/pin-active.svg';
 
-const TIMEOUT_SHOW_ERROR = 20000; //TODO время показа ошибки
+const TIMEOUT_SHOW_ERROR = 20000; //TODO время показа ошибки, тоже на удаление
 
 const SORT_TYPES = {
   POPULAR: 'Popular',

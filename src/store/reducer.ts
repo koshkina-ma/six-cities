@@ -1,6 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setCity, setUser, setOffers, requireAuthorization, setError, setOffersDataLoadingStatus } from './action';
-import { OfferType, UserType, CommentType } from '../types';
+import {
+  setCity,
+  setUser,
+  setOffers,
+  requireAuthorization,
+  setOffersDataLoadingStatus,
+  setOffer,
+  setNearOffers,
+  setOfferDataLoadingStatus,
+} from './action';
+import { OfferType, OfferDetailType, UserType, CommentType } from '../types';
 import { CITIES, AuthorizationStatus } from '../const';
 
 type AppStateType = {
@@ -8,9 +17,11 @@ type AppStateType = {
   offers: OfferType[];
   comments: CommentType[];
   isLoading: boolean;
-  error: string | null;
   authorizationStatus: AuthorizationStatus;
   user: UserType | null;
+  offer: OfferDetailType | null;
+  nearOffers: OfferType[];
+  isOfferDataLoading: boolean;
 };
 
 const initialState: AppStateType = {
@@ -18,9 +29,11 @@ const initialState: AppStateType = {
   offers: [],
   comments: [],
   isLoading: false,
-  error: null,
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
+  offer: null,
+  nearOffers: [],
+  isOfferDataLoading: false,
 };
 
 
@@ -41,9 +54,18 @@ const reducer = createReducer<AppStateType>(initialState, (builder) => {
   builder.addCase(setUser, (state, action) => {
     state.user = action.payload;
   })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
+    .addCase(setOffer, (state, action) => {
+      state.offer = action.payload;
+    })
+    .addCase(setNearOffers, (state, action) => {
+      state.nearOffers = action.payload;
+    })
+    .addCase(setOfferDataLoadingStatus, (state, action) => {
+      state.isOfferDataLoading = action.payload;
     });
+  // .addCase(setError, (state, action) => {
+  //   state.error = action.payload;
+  // });
 });
 
 export {reducer};

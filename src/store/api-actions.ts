@@ -1,23 +1,39 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import {OfferType} from '../types';
-import {requireAuthorization, setOffers, setUser, setComments, setOffersDataLoadingStatus, setCommentsDataLoadingStatus, setError} from './action';
+import {OfferType, OfferDetailType, AuthType, UserType, CommentType} from '../types';
+import {
+  requireAuthorization,
+  setOffers,
+  setUser,
+  setComments,
+  setCommentsDataLoadingStatus,
+  setOffersDataLoadingStatus,
+  setOffer,
+  setOfferDataLoadingStatus,
+  setNearOffers,
+  setError
+} from './action';
 import {saveToken, dropToken} from '../services/token';
-import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR} from '../const';
-import {AuthType, UserType, CommentType} from '../types';
+import {APIRoute, AuthorizationStatus} from '../const';
 
-
-export const clearErrorAction = createAsyncThunk<void, undefined,{
+// ===== LOAD SINGLE OFFER BY ID =====
+export const fetchOfferAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
 }>(
-  'app/clearError',
-  (_arg, { dispatch }) => {
-    setTimeout(
-      () => dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR,
-    );
-  },
+  'data/fetchOffer',
+  async (id, {dispatch, extra: api}) => {
+    dispatch(setOfferDataLoadingStatus(true));
+    try {
+      const {data} = await api.get<OfferDetailType>(`${APIRoute.Offers}/${id}`);
+      dispatch(setOffer(data));
+    } catch {
+      dispatch(setError('404')); //TODO у меня есть специальный компонент страницы 404, заменить
+    }
+    dispatch(setOfferDataLoadingStatus(false));
+  }
 );
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
@@ -36,21 +52,36 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchCommentsAction = createAsyncThunk<void, undefined, {
+// ===== LOAD NEAR OFFERS =====
+export const fetchNearOffersAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchNearOffers',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<OfferType[]>(`${APIRoute.Offers}/${id}/nearby`);
+    dispatch(setNearOffers(data));
+  }
+);
+
+// ===== LOAD COMMENTS =====
+export const fetchCommentsAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchComments',
-  async (_arg, {dispatch, extra: api}) => {
+  async (id, {dispatch, extra: api}) => {
     dispatch(setCommentsDataLoadingStatus(true));
-    await new Promise((resolve) => setTimeout(resolve, 3000)); //TODO искусственное замедление для теста лоадера
-    const {data} = await api.get<CommentType[]>(APIRoute.Comments);
-    dispatch(setCommentsDataLoadingStatus(false));
+    const {data} = await api.get<CommentType[]>(`${APIRoute.Comments}/${id}`);
     dispatch(setComments(data));
+    dispatch(setCommentsDataLoadingStatus(false));
   }
 );
 
+
+// ===== AUTH =====
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
