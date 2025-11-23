@@ -31,7 +31,7 @@ export const fetchOfferAction = createAsyncThunk<void, string, {
       const { data } = await api.get<OfferDetailType>(`${APIRoute.Offers}/${id}`);
       dispatch(setOffer(data));
     } catch (error: unknown) {
-      dispatch(setOffer(null)); // чтобы компонент понял, что данных нет
+      dispatch(setOffer(null));
       const message = getErrorMessage(error);
       if (message) {
         dispatch(setError(message));
@@ -101,10 +101,13 @@ export const sendCommentAction = createAsyncThunk<void, { offerId: string; comme
   'data/sendComment',
   async ({ offerId, commentData }, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.post<CommentType[]>(`${APIRoute.Comments}/${offerId}`, commentData);
-      dispatch(setComments(data));
-    } catch (error) {
-      dispatch(setError('Failed to send comment'));
+      await api.post<CommentType[]>(`${APIRoute.Comments}/${offerId}`, commentData);
+      dispatch(fetchCommentsAction(offerId));
+    } catch (error: unknown) {
+      const message = getErrorMessage(error);
+      if (message) {
+        dispatch(setError(message));
+      }
     }
   }
 );
@@ -161,14 +164,4 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 );
 
 
-export const fetchTestErrorAction = createAsyncThunk<void, undefined, { // TODO добавлено для проверки вывода ошибок
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'data/fetchTestError',
-  async (_arg, { extra: api }) => {
-    await api.get('/invalid-endpoint');
-  }
-);
-
+//TODO проверить на вывод ошибок

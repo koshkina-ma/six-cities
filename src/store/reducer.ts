@@ -8,7 +8,8 @@ import {
   setOffer,
   setNearOffers,
   setOfferDataLoadingStatus,
-  setError
+  setError,
+  setComments
 } from './action';
 import { OfferType, OfferDetailType, UserType, CommentType } from '../types';
 import { CITIES, AuthorizationStatus } from '../const';
@@ -65,6 +66,9 @@ const reducer = createReducer<AppStateType>(initialState, (builder) => {
     })
     .addCase(setOfferDataLoadingStatus, (state, action) => {
       state.isOfferDataLoading = action.payload;
+    })
+    .addCase(setComments, (state, action) => {
+      state.comments = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;

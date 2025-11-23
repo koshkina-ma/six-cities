@@ -26,6 +26,7 @@ const CommentForm: FC<CommentFormProps> = ({ onSubmit }) => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     onSubmit(formData);
+    setFormData({ comment: '', rating: 0 });
   };
 
   return (
