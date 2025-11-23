@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { fetchOfferAction, fetchNearOffersAction, fetchCommentsAction } from '../../store/api-actions';
 import { CommentFormDataType } from '../../types';
 import { NotFoundPage } from '..';
-
+import { toast } from 'react-toastify';
 
 function OfferPage(): JSX.Element {
   const { id } = useParams<{ id: string }>();
@@ -17,6 +17,14 @@ function OfferPage(): JSX.Element {
   const nearOffers = useAppSelector((state) => state.nearOffers);
   const isOfferLoading = useAppSelector((state) => state.isOfferDataLoading);
 
+  const error = useAppSelector((state) => state.error);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
+
   useEffect(() => {
     if (id) {
       dispatch(fetchOfferAction(id));
@@ -24,7 +32,6 @@ function OfferPage(): JSX.Element {
       dispatch(fetchCommentsAction(id));
     }
   }, [dispatch, id]);
-
 
   const handleCommentSubmit = (data: CommentFormDataType): void => {
     void data; // явно "используем" переменную

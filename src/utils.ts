@@ -32,5 +32,20 @@ const sortOffers = (offers: OfferType[], sortType: string): OfferType[] => {
   }
 };
 
-export { formatDateToMonthYear, getLatestComments, sortByPriceLowToHigh, sortByPriceHighToLow, sortByRating, sortOffers};
+const getErrorMessage = (err: unknown): string | undefined => {
+  if (typeof err === 'object' && err !== null) {
+    return (err as { response?: { data?: { message?: string } } }).response?.data?.message;
+  }
+  return undefined;
+};
+
+export {
+  formatDateToMonthYear,
+  getLatestComments,
+  sortByPriceLowToHigh,
+  sortByPriceHighToLow,
+  sortByRating,
+  sortOffers,
+  getErrorMessage
+};
 

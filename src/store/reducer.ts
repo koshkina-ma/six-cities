@@ -8,6 +8,7 @@ import {
   setOffer,
   setNearOffers,
   setOfferDataLoadingStatus,
+  setError
 } from './action';
 import { OfferType, OfferDetailType, UserType, CommentType } from '../types';
 import { CITIES, AuthorizationStatus } from '../const';
@@ -22,6 +23,7 @@ type AppStateType = {
   offer: OfferDetailType | null;
   nearOffers: OfferType[];
   isOfferDataLoading: boolean;
+  error: string | null;
 };
 
 const initialState: AppStateType = {
@@ -34,6 +36,7 @@ const initialState: AppStateType = {
   offer: null,
   nearOffers: [],
   isOfferDataLoading: false,
+  error: null,
 };
 
 
@@ -62,10 +65,10 @@ const reducer = createReducer<AppStateType>(initialState, (builder) => {
     })
     .addCase(setOfferDataLoadingStatus, (state, action) => {
       state.isOfferDataLoading = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
-  // .addCase(setError, (state, action) => {
-  //   state.error = action.payload;
-  // });
 });
 
 export {reducer};

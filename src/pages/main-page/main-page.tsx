@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Header, OffersList, CitiesList, Map, SortOptions, Spinner } from '../../components';
 import { CITIES, SORT_TYPES } from '../../const' ;
@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet-async';
 import { setCity } from '../../store/action';
 import { getCity, getOffersByCity } from '../../store/selectors';
 import { sortOffers } from '../../utils';
+import { toast } from 'react-toastify';
 
 function MainPage(): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
@@ -23,6 +24,14 @@ function MainPage(): JSX.Element {
   };
 
   const isLoading = useAppSelector((state) => state.isLoading);
+  const error = useAppSelector((state) => state.error);
+
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
 
   return (
     <div className="page page--gray page--main">

@@ -1,7 +1,7 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
-import {OfferType, OfferDetailType, AuthType, UserType, CommentType} from '../types';
+import {OfferType, OfferDetailType, AuthType, UserType, CommentType, CommentFormDataType} from '../types';
 import {
   requireAuthorization,
   setOffers,
@@ -16,6 +16,7 @@ import {
 } from './action';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AuthorizationStatus} from '../const';
+import { getErrorMessage } from '../utils';
 
 // ===== LOAD SINGLE OFFER BY ID =====
 export const fetchOfferAction = createAsyncThunk<void, string, {
@@ -24,15 +25,20 @@ export const fetchOfferAction = createAsyncThunk<void, string, {
   extra: AxiosInstance;
 }>(
   'data/fetchOffer',
-  async (id, {dispatch, extra: api}) => {
+  async (id, { dispatch, extra: api }) => {
     dispatch(setOfferDataLoadingStatus(true));
     try {
-      const {data} = await api.get<OfferDetailType>(`${APIRoute.Offers}/${id}`);
+      const { data } = await api.get<OfferDetailType>(`${APIRoute.Offers}/${id}`);
       dispatch(setOffer(data));
-    } catch {
-      dispatch(setError('404')); //TODO у меня есть специальный компонент страницы 404, заменить
+    } catch (error: unknown) {
+      dispatch(setOffer(null)); // чтобы компонент понял, что данных нет
+      const message = getErrorMessage(error);
+      if (message) {
+        dispatch(setError(message));
+      }
+    } finally {
+      dispatch(setOfferDataLoadingStatus(false));
     }
-    dispatch(setOfferDataLoadingStatus(false));
   }
 );
 
@@ -42,13 +48,20 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>(
   'data/fetchOffers',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, { dispatch, extra: api }) => {
     dispatch(setOffersDataLoadingStatus(true));
     await new Promise((resolve) => setTimeout(resolve, 3000)); //TODO искусственное замедление для теста лоадера
-    const {data} = await api.get<OfferType[]>(APIRoute.Offers);
-    dispatch(setOffersDataLoadingStatus(false));
-    dispatch(setOffers(data));
-
+    try {
+      const { data } = await api.get<OfferType[]>(APIRoute.Offers);
+      dispatch(setOffers(data));
+    } catch (error: unknown) {
+      const message = getErrorMessage(error);
+      if (message) {
+        dispatch(setError(message));
+      }
+    } finally {
+      dispatch(setOffersDataLoadingStatus(false));
+    }
   },
 );
 
@@ -65,7 +78,7 @@ export const fetchNearOffersAction = createAsyncThunk<void, string, {
   }
 );
 
-// ===== LOAD COMMENTS =====
+// ===== COMMENTS =====
 export const fetchCommentsAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch;
   state: State;
@@ -77,6 +90,22 @@ export const fetchCommentsAction = createAsyncThunk<void, string, {
     const {data} = await api.get<CommentType[]>(`${APIRoute.Comments}/${id}`);
     dispatch(setComments(data));
     dispatch(setCommentsDataLoadingStatus(false));
+  }
+);
+
+export const sendCommentAction = createAsyncThunk<void, { offerId: string; commentData: CommentFormDataType }, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/sendComment',
+  async ({ offerId, commentData }, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.post<CommentType[]>(`${APIRoute.Comments}/${offerId}`, commentData);
+      dispatch(setComments(data));
+    } catch (error) {
+      dispatch(setError('Failed to send comment'));
+    }
   }
 );
 
@@ -129,5 +158,17 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     dispatch(setUser(null));
   },
+);
+
+
+export const fetchTestErrorAction = createAsyncThunk<void, undefined, { // TODO добавлено для проверки вывода ошибок
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchTestError',
+  async (_arg, { extra: api }) => {
+    await api.get('/invalid-endpoint');
+  }
 );
 

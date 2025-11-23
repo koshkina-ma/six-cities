@@ -46,7 +46,7 @@ const createAPI = (): AxiosInstance => {
         toast.warn(detailMessage.error);
       }
 
-      throw error;
+      return Promise.reject(error);
     }
   );
 
