@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { fetchOfferAction, fetchNearOffersAction, fetchCommentsAction, sendCommentAction } from '../../store/api-actions';
 import { CommentFormDataType } from '../../types';
 import { NotFoundPage } from '..';
+import { AuthorizationStatus } from '../../const';
 
 function OfferPage(): JSX.Element {
   const { id } = useParams<{ id: string }>();
@@ -15,6 +16,8 @@ function OfferPage(): JSX.Element {
   const comments = useAppSelector((state) => state.comments);
   const nearOffers = useAppSelector((state) => state.nearOffers);
   const isOfferLoading = useAppSelector((state) => state.isOfferDataLoading);
+
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   useEffect(() => {
     if (id) {
@@ -116,7 +119,9 @@ function OfferPage(): JSX.Element {
                   Reviews &middot; <span className="reviews__amount">{comments.length}</span>
                 </h2>
                 <CommentsList comments={comments} />
-                <CommentForm onSubmit={handleCommentSubmit} />
+                {authorizationStatus === AuthorizationStatus.Auth && (
+                  <CommentForm onSubmit={handleCommentSubmit} />
+                )}
               </section>
             </div>
           </div>
