@@ -54,6 +54,14 @@ const user: UserType = {
   token: '1'
 };
 
+enum NameSpace {
+User = 'USER',
+Main = 'MAIN',
+Offer = 'OFFER',
+Comments = 'COMMENTS',
+App = 'APP',
+}
+
 export {
   CITIES,
   AppRoute,
@@ -63,5 +71,8 @@ export {
   URL_MARKER_DEFAULT,
   URL_MARKER_ACTIVE,
   SORT_TYPES,
-  TIMEOUT_SHOW_ERROR
+  TIMEOUT_SHOW_ERROR,
+  NameSpace,
 };
+
+
