@@ -1,8 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {NameSpace} from '../const';
-import {OfferSliceType} from '../types/state';
-import {OfferDetailType, OfferType} from '../types';
-import {fetchOfferAction, fetchNearOffersAction} from './api-actions';
+import {NameSpace} from '../../const';
+import {OfferSliceType} from '../../types/state';
+import {OfferDetailType, OfferType} from '../../types';
+import {fetchOfferAction, fetchNearOffersAction} from '../api-actions';
 
 const initialState: OfferSliceType = {
   offer: null,

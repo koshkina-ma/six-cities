@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {NameSpace, CITIES} from '../const';
-import {MainSliceType} from '../types/state';
-import {OfferType} from '../types';
+import {NameSpace, CITIES} from '../../const';
+import {MainSliceType} from '../../types/state';
+import {OfferType} from '../../types';
 
 const initialState: MainSliceType = {
   city: CITIES[0],

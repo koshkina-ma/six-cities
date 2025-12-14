@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CommentType } from '../types';
-import { CommentsSliceType } from '../types/state';
-import { fetchCommentsAction, sendCommentAction } from './api-actions';
+import { CommentType } from '../../types';
+import { CommentsSliceType } from '../../types/state';
+import { fetchCommentsAction, sendCommentAction } from '../api-actions';
 
 const initialState: CommentsSliceType = {
   comments: [],
