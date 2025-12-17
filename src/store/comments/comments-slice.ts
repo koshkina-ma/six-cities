@@ -32,6 +32,6 @@ export const commentsSlice = createSlice(
   }
 );
 
-export const { setComments, setCommentsDataLoadingStatus } = commentsSlice.actions;
+// export const { setComments, setCommentsDataLoadingStatus } = commentsSlice.actions;
 export const commentsReducer = commentsSlice.reducer;
 //TODO проверить экспорт экшенов, нужен ли тут, почему не видит их, после редактирования апи экшена

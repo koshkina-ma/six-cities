@@ -7,17 +7,20 @@ import { fetchOfferAction, fetchNearOffersAction, fetchCommentsAction, sendComme
 import { CommentFormDataType } from '../../types';
 import { NotFoundPage } from '..';
 import { AuthorizationStatus } from '../../const';
+import { getOffer, getNearOffers, getIsOfferDataLoading } from '../../store/offer/offer-selectors';
+import { getComments } from '../../store/comments/comments-selectors';
+import { getAuthorizationStatus} from '../../store/user/user-selectors';
 
 function OfferPage(): JSX.Element {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
 
-  const offer = useAppSelector((state) => state.offer);
-  const comments = useAppSelector((state) => state.comments);
-  const nearOffers = useAppSelector((state) => state.nearOffers);
-  const isOfferLoading = useAppSelector((state) => state.isOfferDataLoading);
+  const offer = useAppSelector(getOffer);
+  const comments = useAppSelector(getComments);
+  const nearOffers = useAppSelector(getNearOffers);
+  const isOfferLoading = useAppSelector(getIsOfferDataLoading);
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     if (id) {

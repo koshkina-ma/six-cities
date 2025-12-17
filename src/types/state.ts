@@ -8,6 +8,10 @@ export type AppDispatch = typeof store.dispatch;
 
 export type UserSliceType = {
   authorizationStatus: AuthorizationStatus;
+  user?: {
+    email: string;
+    favoriteCount: number;
+  };
 }
 
 export type MainSliceType = {

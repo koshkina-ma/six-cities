@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../store/api-actions';
+import { getAuthorizationStatus, getFavoriteCount, getUserEmail } from '../../store/user/user-selectors';
 
 type HeaderProps = {
   hideUserNav?: boolean;
@@ -9,10 +10,9 @@ type HeaderProps = {
 
 function Header({ hideUserNav }: HeaderProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const user = useAppSelector((state) => state.user);
-  const email = user?.email;
-  const favoriteCount = useAppSelector((state) => state.user?.favoriteCount);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const email = useAppSelector(getUserEmail);
+  const favoriteCount = useAppSelector(getFavoriteCount);
 
   const handleLogout = () => {
     dispatch(logoutAction());

@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace, CITIES} from '../../const';
 import {MainSliceType} from '../../types/state';
 import {OfferType} from '../../types';
+import { fetchOffersAction } from '../api-actions';
 
 const initialState: MainSliceType = {
   city: CITIES[0],
@@ -16,14 +17,28 @@ export const mainSlice = createSlice({
     setCity: (state, action: PayloadAction<string>) => {
       state.city = action.payload;
     },
-    setOffers: (state, action: PayloadAction<OfferType[]>) => {
-      state.offers = action.payload;
-    },
+    //TODO удалить? setOffers: (state, action: PayloadAction<OfferType[]>) => {
+    //   state.offers = action.payload;
+    // },
     setOffersDataLoadingStatus: (state, action: PayloadAction<boolean>) => {
       state.isOffersDataLoading = action.payload;
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchOffersAction.pending, (state) => {
+        state.isOffersDataLoading = true;
+      })
+      .addCase(fetchOffersAction.fulfilled, (state, action: PayloadAction<OfferType[]>) => {
+        state.offers = action.payload;
+        state.isOffersDataLoading = false;
+      })
+      .addCase(fetchOffersAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.offers = [];
+      });
   }
 });
 
-export const {setCity, setOffers, setOffersDataLoadingStatus} = mainSlice.actions;
+export const {setCity, setOffersDataLoadingStatus} = mainSlice.actions;
 export const mainReducer = mainSlice.reducer;

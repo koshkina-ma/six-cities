@@ -34,6 +34,6 @@ export const offerSlice = createSlice ({
 }
 );
 
-export const { setOffer, setOfferDataLoadingStatus, setNearOffers } = offerSlice.actions;
+// export const { setOffer, setOfferDataLoadingStatus, setNearOffers } = offerSlice.actions;
 export const offerReducer = offerSlice.reducer;
 //TODO проверить экспорт экшенов, нужен ли тут, почему не видит их, после редактирования апи экшена

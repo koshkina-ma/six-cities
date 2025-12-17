@@ -6,4 +6,4 @@ export const getOffer = (state: State): OfferDetailType | null => state[NameSpac
 
 export const getNearOffers = (state: State): OfferType[] => state[NameSpace.Offer].nearOffers;
 
-export const getIsOfferLoading = (state: State): boolean => state[NameSpace.Offer].isOfferDataLoading;
+export const getIsOfferDataLoading = (state: State): boolean => state[NameSpace.Offer].isOfferDataLoading;

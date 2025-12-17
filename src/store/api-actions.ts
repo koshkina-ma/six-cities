@@ -12,7 +12,7 @@ import {
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute} from '../const';
 import { getErrorMessage } from '../utils';
-import { setError } from './appSlice';
+import { setError } from './app/app-slice';
 
 // ===== LOAD OFFERS =====
 export const fetchOffersAction = createAsyncThunk<
@@ -109,18 +109,19 @@ CommentType[],
 
 // ===== AUTH =====
 export const checkAuthAction = createAsyncThunk<
-void,
+{ email: string; favoriteCount: number },
 undefined,
 { state: State; extra: AxiosInstance}
 >(
   'user/checkAuth',
   async (_arg, { extra: api }) => {
-    await api.get(APIRoute.Login);
+    const response = await api.get<UserType>(APIRoute.Login);
+    return { email: response.data.email, favoriteCount: response.data.favoriteCount };
   },
 );
 
 export const loginAction = createAsyncThunk<
-void,
+{ email: string; favoriteCount: number },
 AuthType,
 { state: State; extra: AxiosInstance}
 >(
@@ -128,6 +129,7 @@ AuthType,
   async ({email, password}, {extra: api}) => {
     const response = await api.post<UserType>(APIRoute.Login, {email, password});
     saveToken(response.data.token);
+    return { email: response.data.email, favoriteCount: response.data.favoriteCount };
     //TODO проверить, как будет хеадер отображаться, если не передавать этот хайдюзер нав
     //  return {
     //   ...response.data,

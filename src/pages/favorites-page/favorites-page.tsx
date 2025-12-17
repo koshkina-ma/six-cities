@@ -1,9 +1,10 @@
 import { Header, OfferCard } from '../../components';
 import { Helmet } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
+import { getOffers } from '../../store/main/main-selectors';
 
 function FavoritesPage(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers) ?? [];
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const favoriteCities = Array.from(new Set(favoriteOffers.map((offer) => offer.city.name)));
 

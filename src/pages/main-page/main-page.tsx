@@ -3,8 +3,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Header, OffersList, CitiesList, Map, SortOptions, Spinner } from '../../components';
 import { CITIES, SORT_TYPES } from '../../const' ;
 import { Helmet } from 'react-helmet-async';
-import { setCity } from '../../store/action';
-import { getCity, getOffersByCity } from '../../store/selectors';
+import { setCity } from '../../store/main/main-slice';
+import { getCity, getOffersByCity, getIsOffersDataLoading } from '../../store/main/main-selectors';
 import { sortOffers } from '../../utils';
 
 function MainPage(): JSX.Element {
@@ -13,7 +13,7 @@ function MainPage(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const city = useAppSelector(getCity);
-  const offers = useAppSelector(getOffersByCity);
+  const offers = useAppSelector(getOffersByCity) ?? [];
   const offersCount = offers.length;
 
   const sortedOffers = sortOffers(offers, sortType);
@@ -22,7 +22,7 @@ function MainPage(): JSX.Element {
     dispatch(setCity(selectedCity));
   };
 
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const isLoading = useAppSelector(getIsOffersDataLoading);
 
   return (
     <div className="page page--gray page--main">
@@ -42,9 +42,16 @@ function MainPage(): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               {isLoading && <Spinner />}
-              <b className="places__found">{offersCount} places to stay in {city}</b>
-              <SortOptions value={sortType} onChange={setSortType} />
-              <OffersList offers={sortedOffers} onOfferHover={setActiveOfferId}/>
+              {!isLoading && offersCount === 0 && (
+                <p>No places to stay available</p>
+              )}
+              {!isLoading && offersCount > 0 && (
+                <>
+                  <b className="places__found">{offersCount} places to stay in {city}</b>
+                  <SortOptions value={sortType} onChange={setSortType} />
+                  <OffersList offers={sortedOffers} onOfferHover={setActiveOfferId}/>
+                </>
+              )}
             </section>
             <div className="cities__right-section">
               <Map className='cities__map' offers={offers} activeOfferId={activeOfferId}/>
@@ -57,4 +64,4 @@ function MainPage(): JSX.Element {
 }
 
 export default MainPage;
-//TODO добавить удаление спинера и вывод ошибки что-ли, потому что если офферов нет, крутит бесконечно
+//TODO проверить удаление спинера и вывод ошибки что-ли, тут должен отображаться компонент пустой страницы
