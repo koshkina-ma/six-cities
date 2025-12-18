@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { Header, OffersList, CitiesList, Map, SortOptions, Spinner } from '../../components';
+import { Header, OffersList, CitiesList, Map, SortOptions, Spinner, MainEmpty } from '../../components';
 import { CITIES, SORT_TYPES } from '../../const' ;
 import { Helmet } from 'react-helmet-async';
 import { setCity } from '../../store/main/main-slice';
@@ -15,6 +15,8 @@ function MainPage(): JSX.Element {
   const city = useAppSelector(getCity);
   const offers = useAppSelector(getOffersByCity) ?? [];
   const offersCount = offers.length;
+  const isLoading = useAppSelector(getIsOffersDataLoading);
+  const isEmpty = !isLoading && offersCount === 0;
 
   const sortedOffers = sortOffers(offers, sortType);
 
@@ -22,46 +24,44 @@ function MainPage(): JSX.Element {
     dispatch(setCity(selectedCity));
   };
 
-  const isLoading = useAppSelector(getIsOffersDataLoading);
-
   return (
     <div className="page page--gray page--main">
       <Helmet>
         <title>6 cities</title>
       </Helmet>
       <Header />
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>
         <CitiesList
           cities={CITIES}
           activeCity={city}
           onCityClick={handleCityClick}
         />
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              {isLoading && <Spinner />}
-              {!isLoading && offersCount === 0 && (
-                <p>No places to stay available</p>
-              )}
-              {!isLoading && offersCount > 0 && (
-                <>
-                  <b className="places__found">{offersCount} places to stay in {city}</b>
-                  <SortOptions value={sortType} onChange={setSortType} />
-                  <OffersList offers={sortedOffers} onOfferHover={setActiveOfferId}/>
-                </>
-              )}
-            </section>
-            <div className="cities__right-section">
-              <Map className='cities__map' offers={offers} activeOfferId={activeOfferId}/>
+        {isEmpty ? (
+          <MainEmpty city={city} />
+        ) : (
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                {isLoading && <Spinner />}
+                {!isLoading && offersCount > 0 && (
+                  <>
+                    <b className="places__found">{offersCount} places to stay in {city}</b>
+                    <SortOptions value={sortType} onChange={setSortType} />
+                    <OffersList offers={sortedOffers} onOfferHover={setActiveOfferId}/>
+                  </>
+                )}
+              </section>
+              <div className="cities__right-section">
+                {!isLoading && <Map className="cities__map" offers={offers} activeOfferId={activeOfferId} />}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </main>
     </div>
   );
 }
 
 export default MainPage;
-//TODO проверить удаление спинера и вывод ошибки что-ли, тут должен отображаться компонент пустой страницы

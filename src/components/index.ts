@@ -11,5 +11,6 @@ export { default as CommentForm } from './comment-form/comment-form';
 export { default as Map } from './map/map';
 export { default as SortOptions } from './sort-options/sort-options';
 export { default as Spinner } from './spinner/spinner';
+export { default as MainEmpty } from './main-empty/main-empty';
 
 
