@@ -37,6 +37,48 @@ export const fetchOffersAction = createAsyncThunk<
     }
   );
 
+// ===== LOAD FAVORITES =====
+export const fetchFavoriteOffersAction = createAsyncThunk<
+  OfferType[],
+  void,
+  { state: State; extra: AxiosInstance}
+>(
+  'favorite/fetchFavorites',
+  async (_arg, { extra: api, dispatch }) => {
+    try {
+      const { data } = await api.get<OfferType[]>(APIRoute.Favorite);
+      return data;
+    } catch (error: unknown) {
+      const message = getErrorMessage(error);
+      if (message) {
+        dispatch(setError(message));
+      }
+      throw error;
+    }
+  }
+);
+
+// ===== CHANGE FAVORITE STATUS =====
+export const changeFavoriteStatusAction = createAsyncThunk<
+  OfferDetailType,
+  { offerId: string; status: 0 | 1 },
+  { state: State; extra: AxiosInstance}
+>(
+  'favorite/changeStatus',
+  async ({ offerId, status }, { extra: api, dispatch }) => {
+    try {
+      const { data } = await api.post<OfferDetailType>(`${APIRoute.Favorite}/${offerId}/${status}`);
+      return data;
+    } catch (error: unknown) {
+      const message = getErrorMessage(error);
+      if (message) {
+        dispatch(setError(message));
+      }
+      throw error;
+    }
+  }
+);
+
 // ===== LOAD SINGLE OFFER =====
 export const fetchOfferAction = createAsyncThunk<
 OfferDetailType,

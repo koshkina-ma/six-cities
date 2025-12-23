@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace, CITIES} from '../../const';
 import {MainSliceType} from '../../types/state';
 import {OfferType} from '../../types';
-import { fetchOffersAction } from '../api-actions';
+import { changeFavoriteStatusAction, fetchOffersAction } from '../api-actions';
 
 const initialState: MainSliceType = {
   city: CITIES[0],
@@ -36,6 +36,11 @@ export const mainSlice = createSlice({
       .addCase(fetchOffersAction.rejected, (state) => {
         state.isOffersDataLoading = false;
         state.offers = [];
+      })
+      .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {
+        state.offers = state.offers.map((offer) => (
+          offer.id === action.payload.id ? { ...offer, isFavorite: action.payload.isFavorite } : offer
+        ));
       });
   }
 });

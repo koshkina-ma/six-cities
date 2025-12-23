@@ -20,6 +20,11 @@ offers: OfferType[];
 isOffersDataLoading: boolean;
 }
 
+export type FavoritesSliceType = {
+  offers: OfferType[];
+  isFavoritesDataLoading: boolean;
+};
+
 export type OfferSliceType = {
   offer: OfferDetailType | null;
   isOfferDataLoading: boolean;

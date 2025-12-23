@@ -2,11 +2,11 @@ import { Header, CommentsList, CommentForm, Map, NearPlacesList, Spinner } from 
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchOfferAction, fetchNearOffersAction, fetchCommentsAction, sendCommentAction } from '../../store/api-actions';
+import { useNavigate, useParams } from 'react-router-dom';
+import { changeFavoriteStatusAction, fetchOfferAction, fetchNearOffersAction, fetchCommentsAction, sendCommentAction } from '../../store/api-actions';
 import { CommentFormDataType } from '../../types';
 import { NotFoundPage } from '..';
-import { AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { getOffer, getNearOffers, getIsOfferDataLoading } from '../../store/offer/offer-selectors';
 import { getComments } from '../../store/comments/comments-selectors';
 import { getAuthorizationStatus} from '../../store/user/user-selectors';
@@ -14,6 +14,7 @@ import { getAuthorizationStatus} from '../../store/user/user-selectors';
 function OfferPage(): JSX.Element {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const offer = useAppSelector(getOffer);
   const comments = useAppSelector(getComments);
@@ -35,6 +36,19 @@ function OfferPage(): JSX.Element {
       return;
     }
     void dispatch(sendCommentAction({ offerId: id, commentData: data }));
+  };
+
+  const handleBookmarkClick = (): void => {
+    if (!offer) {
+      return;
+    }
+
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      navigate(AppRoute.Login);
+      return;
+    }
+
+    void dispatch(changeFavoriteStatusAction({ offerId: offer.id, status: offer.isFavorite ? 0 : 1 }));
   };
 
   if (isOfferLoading) {
@@ -71,7 +85,11 @@ function OfferPage(): JSX.Element {
               )}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{offer.title}</h1>
-                <button className="offer__bookmark-button button" type="button">
+                <button
+                  className={`offer__bookmark-button button ${offer.isFavorite ? 'offer__bookmark-button--active' : ''}`}
+                  type="button"
+                  onClick={handleBookmarkClick}
+                >
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use href="#icon-bookmark"></use>
                   </svg>

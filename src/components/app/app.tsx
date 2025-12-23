@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 
 function App(): JSX.Element {
-  const error = useAppSelector((state) => state.error);
+  const error = useAppSelector((state) => state.APP.error);
 
   useEffect(() => {
     if (error) {
@@ -18,7 +18,7 @@ function App(): JSX.Element {
     }
   }, [error]);
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.USER.authorizationStatus);
 
   if (authorizationStatus === AuthorizationStatus.Unknown) {
     return (

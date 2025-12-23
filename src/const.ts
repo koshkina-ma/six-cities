@@ -57,6 +57,7 @@ const user: UserType = {
 enum NameSpace {
 User = 'USER',
 Main = 'MAIN',
+Favorite = 'FAVORITE',
 Offer = 'OFFER',
 Comments = 'COMMENTS',
 App = 'APP',
