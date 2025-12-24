@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace, AuthorizationStatus} from '../../const';
 import {UserSliceType} from '../../types/state';
-import { changeFavoriteStatusAction, checkAuthAction, loginAction, logoutAction } from '../api-actions';
+import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 
 const initialState: UserSliceType = {
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -32,16 +32,6 @@ export const userSlice = createSlice({
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.user = undefined;
-      })
-      .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {
-        if (!state.user) {
-          return;
-        }
-
-        state.user.favoriteCount = Math.max(
-          0,
-          state.user.favoriteCount + (action.payload.isFavorite ? 1 : -1)
-        );
       });
   }
 });

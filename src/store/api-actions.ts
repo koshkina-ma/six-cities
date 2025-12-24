@@ -58,6 +58,20 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   }
 );
 
+// ===== AUTH =====
+export const checkAuthAction = createAsyncThunk<
+{ email: string; favoriteCount: number },
+undefined,
+{ state: State; extra: AxiosInstance}
+>(
+  'user/checkAuth',
+  async (_arg, { extra: api }) => {
+    const response = await api.get<UserType>(APIRoute.Login);
+    const { data: favorites } = await api.get<OfferType[]>(APIRoute.Favorite);
+    return { email: response.data.email, favoriteCount: favorites.length };
+  },
+);
+
 // ===== CHANGE FAVORITE STATUS =====
 export const changeFavoriteStatusAction = createAsyncThunk<
   OfferDetailType,
@@ -68,6 +82,7 @@ export const changeFavoriteStatusAction = createAsyncThunk<
   async ({ offerId, status }, { extra: api, dispatch }) => {
     try {
       const { data } = await api.post<OfferDetailType>(`${APIRoute.Favorite}/${offerId}/${status}`);
+      dispatch(checkAuthAction());
       return data;
     } catch (error: unknown) {
       const message = getErrorMessage(error);
@@ -149,19 +164,6 @@ CommentType[],
 );
 
 
-// ===== AUTH =====
-export const checkAuthAction = createAsyncThunk<
-{ email: string; favoriteCount: number },
-undefined,
-{ state: State; extra: AxiosInstance}
->(
-  'user/checkAuth',
-  async (_arg, { extra: api }) => {
-    const response = await api.get<UserType>(APIRoute.Login);
-    return { email: response.data.email, favoriteCount: response.data.favoriteCount };
-  },
-);
-
 export const loginAction = createAsyncThunk<
 { email: string; favoriteCount: number },
 AuthType,
@@ -171,7 +173,8 @@ AuthType,
   async ({email, password}, {extra: api}) => {
     const response = await api.post<UserType>(APIRoute.Login, {email, password});
     saveToken(response.data.token);
-    return { email: response.data.email, favoriteCount: response.data.favoriteCount };
+    const { data: favorites } = await api.get<OfferType[]>(APIRoute.Favorite);
+    return { email: response.data.email, favoriteCount: favorites.length };
     //TODO проверить, как будет хеадер отображаться, если не передавать этот хайдюзер нав
     //  return {
     //   ...response.data,
