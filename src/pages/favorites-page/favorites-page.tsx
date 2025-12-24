@@ -1,12 +1,14 @@
 import { FavoritesEmpty, Header, OfferCard, Spinner } from '../../components';
 import { Helmet } from 'react-helmet-async';
 import { useEffect, useState } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
 import { OfferType } from '../../types';
+import { getFavoriteCount } from '../../store/user/user-selectors';
 
 function FavoritesPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const favoriteCount = useAppSelector(getFavoriteCount);
 
   const [favoriteOffers, setFavoriteOffers] = useState<OfferType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +37,7 @@ function FavoritesPage(): JSX.Element {
     return () => {
       isMounted = false;
     };
-  }, [dispatch]);
+  }, [dispatch, favoriteCount]);
 
   let content: JSX.Element;
   if (isLoading) {
