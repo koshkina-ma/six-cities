@@ -27,6 +27,16 @@ function OfferCard({ offer, className = 'cities__card' }: OfferCardProps): JSX.E
     previewImage
   } = offer;
 
+  const isFavoritesCard = className.includes('favorites__card');
+  const imageWrapperClassName = isFavoritesCard
+    ? 'favorites__image-wrapper place-card__image-wrapper'
+    : 'cities__image-wrapper place-card__image-wrapper';
+  const cardInfoClassName = isFavoritesCard
+    ? 'favorites__card-info place-card__info'
+    : 'place-card__info';
+  const imageWidth = isFavoritesCard ? 150 : 260;
+  const imageHeight = isFavoritesCard ? 110 : 200;
+
   const handleBookmarkClick = (): void => {
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       navigate(AppRoute.Login);
@@ -43,18 +53,18 @@ function OfferCard({ offer, className = 'cities__card' }: OfferCardProps): JSX.E
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={imageWrapperClassName}>
         <a href="#">
           <img
             className="place-card__image"
             src={previewImage}
-            width="260"
-            height="200"
+            width={imageWidth}
+            height={imageHeight}
             alt={title}
           />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={cardInfoClassName}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>

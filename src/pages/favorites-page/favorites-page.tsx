@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
 import { OfferType } from '../../types';
 import { getFavoriteCount } from '../../store/user/user-selectors';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function FavoritesPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -64,7 +66,7 @@ function FavoritesPage(): JSX.Element {
                     {favoriteOffers
                       .filter((offer) => offer.city.name === city)
                       .map((offer) => (
-                        <OfferCard key={offer.id} offer={offer} />
+                        <OfferCard key={offer.id} offer={offer} className="favorites__card" />
                       ))}
 
                   </div>
@@ -86,6 +88,18 @@ function FavoritesPage(): JSX.Element {
       <Header/>
 
       {content}
+
+      <footer className="footer container">
+        <Link className="footer__logo-link" to={AppRoute.Root}>
+          <img
+            className="footer__logo"
+            src="img/logo.svg"
+            alt="6 cities logo"
+            width="64"
+            height="33"
+          />
+        </Link>
+      </footer>
     </div>
   );
 }
