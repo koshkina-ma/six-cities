@@ -54,7 +54,7 @@ function OfferCard({ offer, className = 'cities__card' }: OfferCardProps): JSX.E
         </div>
       )}
       <div className={imageWrapperClassName}>
-        <a href="#">
+        <Link to={`/offer/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -62,7 +62,7 @@ function OfferCard({ offer, className = 'cities__card' }: OfferCardProps): JSX.E
             height={imageHeight}
             alt={title}
           />
-        </a>
+        </Link>
       </div>
       <div className={cardInfoClassName}>
         <div className="place-card__price-wrapper">

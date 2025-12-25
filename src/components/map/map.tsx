@@ -41,7 +41,7 @@ function Map({ className, offers, activeOfferId }: MapProps) {
       offers.forEach((offer) => {
         const { latitude: offerLat, longitude: offerLng } = offer.location;
         const icon = offer.id === activeOfferId ? activeIcon : defaultIcon;
-        leaflet.marker([offerLat, offerLng], { icon }).addTo(map);
+        leaflet.marker([offerLat, offerLng], { icon, interactive: false }).addTo(map);
       });
     }
   }, [map, offers, activeOfferId]);

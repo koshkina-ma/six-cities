@@ -22,7 +22,7 @@ export const fetchOffersAction = createAsyncThunk<
   >(
     'main/fetchOffers',
     async (_arg, { extra: api, dispatch }) => {
-      await new Promise((resolve) => setTimeout(resolve, 3000)); //TODO искусственное замедление для теста лоадера
+      //TODO await new Promise((resolve) => setTimeout(resolve, 3000));  искусственное замедление для теста лоадера
 
       try {
         const { data } = await api.get<OfferType[]>(APIRoute.Offers);
@@ -151,7 +151,8 @@ CommentType[],
   'comments/sendComment',
   async ({ offerId, commentData }, { extra: api, dispatch }) => {
     try {
-      const { data } = await api.post<CommentType[]>(`${APIRoute.Comments}/${offerId}`, commentData);
+      await api.post(`${APIRoute.Comments}/${offerId}`, commentData);
+      const { data } = await api.get<CommentType[]>(`${APIRoute.Comments}/${offerId}`);
       return data;
     } catch (error: unknown) {
       const message = getErrorMessage(error);

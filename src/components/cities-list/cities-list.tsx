@@ -11,14 +11,18 @@ function CitiesList({ cities, activeCity, onCityClick }: CitiesListProps): JSX.E
         <ul className="locations__list tabs__list">
           {cities.map((city) => (
             <li key={city} className="locations__item">
-              <span
+              <a
                 className={`locations__item-link tabs__item ${
                   city === activeCity ? 'tabs__item--active' : ''
                 }`}
-                onClick={() => onCityClick?.(city)}
+                href="#"
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  onCityClick?.(city);
+                }}
               >
-                {city}
-              </span>
+                <span>{city}</span>
+              </a>
             </li>
           ))}
         </ul>

@@ -59,6 +59,9 @@ function OfferPage(): JSX.Element {
     return <NotFoundPage />;
   }
 
+  const nearOffersToShow = nearOffers.slice(0, 3);
+  const mapOffers = [offer, ...nearOffersToShow];
+
   return (
     <div className="page">
       <Helmet>
@@ -146,12 +149,12 @@ function OfferPage(): JSX.Element {
               </section>
             </div>
           </div>
-          <Map className="offer__map" offers={nearOffers} />
+          <Map className="offer__map" offers={mapOffers} activeOfferId={offer.id} />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <NearPlacesList offers={nearOffers} />
+            <NearPlacesList offers={nearOffersToShow} />
           </section>
         </div>
       </main>
